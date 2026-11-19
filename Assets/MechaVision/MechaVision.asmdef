@@ -1,0 +1,12 @@
+{
+    "name": "MechaVision",
+    "rootNamespace": "MechaVision",
+    "references": [
+        "Unity.InputSystem",
+        "Unity.XR.ARCore",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.ARSubsystems",
+        "Unity.XR.CoreUtils",
+        "UnityEngine.UI"
+    ]
+}
