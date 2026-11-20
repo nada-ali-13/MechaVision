@@ -1,0 +1,7 @@
+{
+    "name": "MechaVision.EditModeTests",
+    "references": ["MechaVision", "Unity.XR.ARSubsystems"],
+    "includePlatforms": ["Editor"],
+    "optionalUnityReferences": ["TestAssemblies"],
+    "autoReferenced": false
+}
