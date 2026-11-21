@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using MechaVision.Catalog;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -45,16 +46,16 @@ namespace MechaVision.Rendering
             holes = null;
         }
 
-        internal void Part(Transform root, PartData part, bool sitsOnBoard)
+        internal void Part(Transform root, PartData part, PinData[] pins, bool sitsOnBoard)
         {
             Vector3 size = part.size_m;
             switch (part.geometry)
             {
                 case "led":
-                    Led(root, size, part.pins, part.id);
+                    Led(root, size, pins, part.id);
                     return;
                 case "resistor":
-                    Resistor(root, size, part.pins, part.id);
+                    Resistor(root, size, pins, part.id);
                     return;
                 case "uno":
                     Uno(root, size);
@@ -103,7 +104,7 @@ namespace MechaVision.Rendering
                     break;
             }
 
-            foreach (PinData pin in part.pins)
+            foreach (PinData pin in pins)
             {
                 if (sitsOnBoard)
                     Lead(root, pin.position_m, pin.position_m + AtHeight(size.y * 0.35f), 0.00055f);
@@ -113,38 +114,40 @@ namespace MechaVision.Rendering
             }
         }
 
-        internal void Breadboard(Transform parent, float pitch, float firstRowOffset, int columns)
+        internal void Junction(Transform root, Vector3 size, PinData[] ports)
+        {
+            var shell = new Color(0.63f, 0.66f, 0.68f);
+            var lever = new Color(0.94f, 0.36f, 0.09f);
+            Box(root, "Splice housing", AtHeight(size.y * 0.45f), size, shell);
+            foreach (PinData port in ports)
+            {
+                Vector3 socket = port.position_m;
+                Round(root, "Splice terminal " + port.id, socket,
+                    new Vector3(0.0020f, 0.0014f, 0.0020f), Metal);
+                Box(root, "Lever " + port.id, new Vector3(socket.x, size.y * 0.99f, size.z * 0.08f),
+                    new Vector3(size.x * 0.22f, size.y * 0.12f, size.z * 0.62f), lever);
+            }
+        }
+
+        internal void Breadboard(Transform parent, PhysicalBoardProfile profile)
         {
             Transform root = Node("Virtual 830-point breadboard", parent, Vector3.zero);
-            Box(root, "Breadboard body", AtHeight(-0.0045f), new Vector3(0.165f, 0.009f, 0.055f),
+            Vector3 size = profile.dimensions_m;
+            Box(root, "Breadboard body", AtHeight(-size.y * 0.5f), size,
                 new Color(0.88f, 0.89f, 0.88f));
-            Box(root, "Center trench", AtHeight(0.00006f), new Vector3(0.16f, 0.00016f, 0.0046f),
-                new Color(0.68f, 0.72f, 0.74f));
+            if (profile.TryGetHole("E1", out Vector3 nearestUpper) &&
+                profile.TryGetHole("F1", out Vector3 nearestLower))
+            {
+                float slotCenter = (nearestLower.z + nearestUpper.z) * 0.5f;
+                float slotWidth = Mathf.Max(profile.pitch_m, nearestLower.z - nearestUpper.z - profile.pitch_m);
+                Box(root, "Center trench", new Vector3(0, 0.00006f, slotCenter),
+                    new Vector3(size.x * 0.97f, 0.00016f, slotWidth), new Color(0.68f, 0.72f, 0.74f));
+            }
 
             var vertices = new List<Vector3>();
             var faces = new List<int>();
-            for (int column = 0; column < columns; column++)
-            {
-                float x = (column - (columns - 1) / 2f) * pitch;
-                for (int row = 0; row < 5; row++)
-                {
-                    float z = firstRowOffset + row * pitch;
-                    AddHole(vertices, faces, x, z);
-                    AddHole(vertices, faces, x, -z);
-                }
-            }
-
-            for (int group = 0; group < 10; group++)
-            {
-                for (int column = 0; column < 5; column++)
-                {
-                    float x = (group * 6 + column - 29f) * pitch;
-                    AddHole(vertices, faces, x, 0.02032f);
-                    AddHole(vertices, faces, x, 0.02286f);
-                    AddHole(vertices, faces, x, -0.02032f);
-                    AddHole(vertices, faces, x, -0.02286f);
-                }
-            }
+            foreach (Vector3 hole in profile.HolePositions)
+                AddHole(vertices, faces, hole.x, hole.z);
 
             holes = new Mesh { name = "Breadboard perforations" };
             holes.SetVertices(vertices);
@@ -157,10 +160,39 @@ namespace MechaVision.Rendering
             renderer.receiveShadows = false;
             Paint(renderer, Dark);
 
-            Box(root, "Upper power rail stripe", new Vector3(0, 0.00008f, 0.0251f),
-                new Vector3(0.156f, 0.00016f, 0.00065f), new Color(0.83f, 0.22f, 0.20f));
-            Box(root, "Lower ground rail stripe", new Vector3(0, 0.00008f, -0.0251f),
-                new Vector3(0.156f, 0.00016f, 0.00065f), Blue);
+            foreach (BoardRailData rail in profile.rails)
+                DrawRailStripes(root, profile, rail);
+        }
+
+        private void DrawRailStripes(Transform root, PhysicalBoardProfile profile, BoardRailData rail)
+        {
+            int first = 1;
+            int last = rail.holes_per_group * rail.group_count;
+            if (rail.cut_after != null)
+            {
+                foreach (int cut in rail.cut_after)
+                {
+                    AddRailStripe(root, profile, rail, first, cut);
+                    first = cut + 1;
+                }
+            }
+            AddRailStripe(root, profile, rail, first, last);
+        }
+
+        private void AddRailStripe(Transform root, PhysicalBoardProfile profile, BoardRailData rail,
+            int first, int last)
+        {
+            if (!profile.TryGetHole(rail.id + first.ToString(CultureInfo.InvariantCulture), out Vector3 from) ||
+                !profile.TryGetHole(rail.id + last.ToString(CultureInfo.InvariantCulture), out Vector3 to))
+                return;
+
+            Color tint = rail.id.EndsWith("P", System.StringComparison.Ordinal)
+                ? new Color(0.83f, 0.22f, 0.20f)
+                : Blue;
+            float offset = Mathf.Sign(rail.z_m) * (rail.id == "TP" || rail.id == "BN" ? 0.00135f : -0.00135f);
+            Vector3 center = new Vector3((from.x + to.x) * 0.5f, 0.00008f, rail.z_m + offset);
+            Box(root, $"Rail segment {rail.id}{first}–{rail.id}{last}", center,
+                new Vector3(to.x - from.x + 0.0012f, 0.00016f, 0.00055f), tint);
         }
 
         private static void AddHole(List<Vector3> vertices, List<int> faces, float x, float z)

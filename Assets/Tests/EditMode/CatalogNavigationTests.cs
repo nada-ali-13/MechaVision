@@ -27,12 +27,13 @@ namespace MechaVision.Tests
         }
 
         [TestCase(0, 1, 3, 1)]
-        [TestCase(0, -1, 3, 3)]
-        [TestCase(1, -1, 3, 1)]
+        [TestCase(0, -1, 3, 0)]
+        [TestCase(1, -1, 3, 0)]
         [TestCase(2, 1, 3, 3)]
         [TestCase(3, 1, 3, 3)]
+        [TestCase(0, 0, 3, 0)]
         [TestCase(0, 1, 0, 0)]
-        public void StepSelectionHandlesAllModeAndBoundaries(int step, int delta, int count, int expected)
+        public void StepSelectionIncludesPreparationAndClampsAtBoundaries(int step, int delta, int count, int expected)
         {
             Assert.That(CatalogNavigation.MoveStep(step, delta, count), Is.EqualTo(expected));
         }
