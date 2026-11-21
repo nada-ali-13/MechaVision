@@ -1,0 +1,45 @@
+{
+  "profile_version": 1,
+  "id": "breadboard_830_template",
+  "measurement_status": "unmeasured_template",
+  "measurement_notes_ar": "الأبعاد وتوزيع قضبان التغذية مثال هندسي قابل للقياس. قِس البورد الحقيقي واختبر استمرارية كل قضيب قبل استخدام ثقوبه في التوصيل.",
+  "coordinate_frame": "Top centre at (0, 0, 0). +X goes from column 1 to 63, +Z from row A to J, +Y above the board.",
+  "dimensions_m": {
+    "x": 0.165,
+    "y": 0.009,
+    "z": 0.055
+  },
+  "pitch_m": 0.00254,
+  "column_count": 63,
+  "column_first_x_m": -0.07874,
+  "rows": [
+    {"name": "A", "z_m": -0.01397},
+    {"name": "B", "z_m": -0.01143},
+    {"name": "C", "z_m": -0.00889},
+    {"name": "D", "z_m": -0.00635},
+    {"name": "E", "z_m": -0.00381},
+    {"name": "F", "z_m": 0.00381},
+    {"name": "G", "z_m": 0.00635},
+    {"name": "H", "z_m": 0.00889},
+    {"name": "I", "z_m": 0.01143},
+    {"name": "J", "z_m": 0.01397}
+  ],
+  "rails": [
+    {
+      "id": "TP", "z_m": -0.02286, "first_x_m": -0.07366,
+      "holes_per_group": 5, "group_count": 10, "gap_after_group_pitches": 1, "cut_after": [25]
+    },
+    {
+      "id": "TN", "z_m": -0.02032, "first_x_m": -0.07366,
+      "holes_per_group": 5, "group_count": 10, "gap_after_group_pitches": 1, "cut_after": [25]
+    },
+    {
+      "id": "BP", "z_m": 0.02032, "first_x_m": -0.07366,
+      "holes_per_group": 5, "group_count": 10, "gap_after_group_pitches": 1, "cut_after": [25]
+    },
+    {
+      "id": "BN", "z_m": 0.02286, "first_x_m": -0.07366,
+      "holes_per_group": 5, "group_count": 10, "gap_after_group_pitches": 1, "cut_after": [25]
+    }
+  ]
+}
