@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 440" width="750" height="440" role="img" aria-labelledby="title description">
+  <title id="title">MechaVision LED demonstration hole map</title>
+  <desc id="description">Uno D9 connects to A31 and the resistor enters D31 and D34. The LED anode at B34 shares the A–E strip with D34. The cathode at B35 shares the strip with E35, which connects to Uno GND.</desc>
+  <defs>
+    <circle id="hole" r="5" fill="#647488"/>
+    <g id="column">
+      <use href="#hole" y="134"/><use href="#hole" y="186"/><use href="#hole" y="238"/>
+      <use href="#hole" y="290"/><use href="#hole" y="342"/>
+    </g>
+  </defs>
+  <rect width="750" height="440" rx="16" fill="#fff"/>
+  <g font-family="system-ui, sans-serif" fill="#18263a">
+    <text x="30" y="43" font-size="24" font-weight="700">LED and 220 Ω resistor</text>
+    <text x="30" y="70" font-size="15" fill="#40546b">Breadboard 830 · top view of A–E, columns 31–35</text>
+    <rect x="192" y="90" width="373" height="276" rx="12" fill="#edf4fa" stroke="#b7cad9"/>
+    <path d="M236 134V342 M452 134V342 M524 134V342" stroke="#badbd4" stroke-width="15" stroke-linecap="round"/>
+    <g font-size="15" font-weight="600" text-anchor="middle">
+      <text x="236" y="113">31</text><text x="308" y="113">32</text>
+      <text x="380" y="113">33</text><text x="452" y="113">34</text><text x="524" y="113">35</text>
+      <text x="209" y="139">A</text><text x="209" y="191">B</text><text x="209" y="243">C</text>
+      <text x="209" y="295">D</text><text x="209" y="347">E</text>
+    </g>
+    <use href="#column" x="236"/><use href="#column" x="308"/><use href="#column" x="380"/>
+    <use href="#column" x="452"/><use href="#column" x="524"/>
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M132 153H170V134H236" stroke="#c38300" stroke-width="5"/>
+      <path d="M524 342V382H614" stroke="#222c38" stroke-width="5"/>
+      <path d="M236 290H452 M452 186H524" stroke="#556878" stroke-width="4"/>
+    </g>
+    <g font-size="17" font-weight="600" text-anchor="middle">
+      <rect x="24" y="134" width="108" height="38" rx="7" fill="#fff5d7" stroke="#c38300"/>
+      <text x="78" y="159">Uno D9</text>
+      <rect x="614" y="363" width="112" height="38" rx="7" fill="#edf1f5" stroke="#222c38"/>
+      <text x="670" y="388">Uno GND</text>
+      <rect x="291" y="276" width="105" height="28" rx="12" fill="#edddb9" stroke="#82643e"/>
+      <text x="344" y="296" font-size="14">220 Ω</text>
+    </g>
+    <path d="M487 171a15 15 0 1 0 11 26v-22a15 15 0 0 0-11-4" fill="#e85d55" stroke="#8e2f2a" stroke-width="2"/>
+    <text x="452" y="163" font-size="12" text-anchor="middle">Anode</text>
+    <text x="524" y="163" font-size="12" text-anchor="middle">Cathode</text>
+    <circle cx="24" cy="414" r="6" fill="#badbd4"/>
+    <text x="39" y="419" font-size="14">Internal five-hole strip</text>
+    <text x="250" y="419" font-size="14" fill="#40546b">D34 and B34 share a strip. No jumper is needed.</text>
+  </g>
+</svg>

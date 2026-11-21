@@ -23,11 +23,15 @@ namespace MechaVision.UI
 
         private static readonly string[] Levels = { "", "beginner", "intermediate", "advanced" };
         private const string JavaDocuments = "com.mechavision.documents.SketchDocuments";
+        private const string BoardMeasurementWarning =
+            "مسودة تعليمية. قِس البورد وتحقّق من استمرارية القضبان قبل اعتماد المحاذاة أو توصيل التغذية.";
 
         private CatalogData catalog;
         private ProjectData selected;
         private ProjectData assembling;
+        private PhysicalLayoutPlan physicalPlan;
         private int step;
+        private bool showFullCircuit;
         private bool previewMode;
         private bool showDrafts;
         private bool overlayVisible = true;
@@ -51,6 +55,8 @@ namespace MechaVision.UI
         private ArabicLabel trackingStatus;
         private ArabicLabel stepTitle;
         private ArabicLabel stepInstruction;
+        private ArabicLabel stepTerminals;
+        private ArabicLabel circuitModeCaption;
         private ArabicLabel sketchStatusLabel;
         private Button previousButton;
         private Button nextButton;
@@ -294,6 +300,7 @@ namespace MechaVision.UI
 
         private void BuildProject()
         {
+            PhysicalLayoutPlan plan = FindLayout(selected.id);
             RectTransform details = view.Scroll(body, "Project details");
             RectTransform intro = view.Card(details, "Project");
             view.Label(intro, selected.name_ar, 27);
@@ -319,13 +326,27 @@ namespace MechaVision.UI
                 view.Label(power, warning, 19, AppView.Amber);
 
             RectTransform connections = view.Card(details, "Connections");
-            view.Label(connections, "التوصيلات والخطوات", 24, AppView.Mint);
-            foreach (AssemblyStepData item in selected.assembly_steps)
+            if (HasPhysicalSteps(plan))
             {
-                view.Label(connections, $"{item.step}. {item.instruction_ar}", 19);
-                string terminals = StepTerminals(selected, item);
-                if (terminals.Length > 0)
-                    view.Label(connections, terminals, 17, AppView.Secondary);
+                view.Label(connections, "خطة التوصيل على البورد", 24, AppView.Mint);
+                view.Label(connections, BoardMeasurementWarning, 17, AppView.Amber);
+                foreach (AssemblyStepData item in plan.assembly_steps)
+                {
+                    view.Label(connections, $"{item.step}. {item.instruction_ar}", 19);
+                    view.Label(connections, WireEndpoints(plan, item), 17, AppView.Secondary, TextAnchor.MiddleLeft);
+                }
+            }
+            else
+            {
+                view.Label(connections, "التوصيلات المرجعية", 24, AppView.Mint);
+                view.Label(connections, LayoutUnavailable(plan), 18, AppView.Amber);
+                foreach (AssemblyStepData item in selected.assembly_steps)
+                {
+                    view.Label(connections, $"{item.step}. {item.instruction_ar}", 19);
+                    string terminals = SchematicTerminals(selected, item);
+                    if (terminals.Length > 0)
+                        view.Label(connections, terminals, 17, AppView.Secondary, TextAnchor.MiddleLeft);
+                }
             }
 
             RectTransform sources = view.Card(details, "Sources");
@@ -341,64 +362,74 @@ namespace MechaVision.UI
             }
 
             RectTransform actions = view.Row(body, "Project actions");
-            view.Button(actions, "ابدأ التوصيل", () =>
+            bool available = HasPhysicalSteps(plan);
+            Button start = view.Button(actions, available ? "ابدأ التوصيل" : "خطة البورد غير متاحة", () =>
             {
                 assembling = selected;
                 overlayVisible = true;
-                step = 1;
+                step = 0;
+                showFullCircuit = false;
                 Show(Page.Tracking);
             }, true);
+            start.interactable = available;
             view.Button(actions, "اعرض الكود", () => Show(Page.Sketch));
         }
 
         private void BuildTracking()
         {
+            physicalPlan = FindLayout(assembling?.id ?? PhysicalLayoutLoader.TrackingProofProjectId);
+            bool available = HasPhysicalSteps(physicalPlan);
             RectTransform headline = view.Card(body, "Tracking state");
-            view.Label(headline, assembling == null ? "اختبار تثبيت الدائرة على البورد" : assembling.name_ar, 23);
+            view.Label(headline, assembling == null ? "تجربة LED ومقاومة على البورد" : assembling.name_ar, 23);
             trackingStatus = view.Label(headline, previewMode ? "معاينة ثلاثية الأبعاد" : tracker.StatusArabic, 19, AppView.Mint);
             if (!previewMode)
-                view.Label(headline, "ثبّت العلامة المطبوعة والبورد على حامل واحد، ثم وجّه الكاميرا نحو العلامة.", 17, AppView.Secondary);
+                view.Label(headline, "ثبّت العلامة والبورد على حامل واحد، ثم وجّه الكاميرا نحو العلامة.", 17, AppView.Secondary);
+            view.Label(headline, available ? BoardMeasurementWarning : LayoutUnavailable(physicalPlan), 17, AppView.Amber);
 
             RectTransform stage = AppView.Rect(body, "Board view");
             AppView.Height(stage, 0, 1);
-            if (previewMode)
+            if (available)
             {
-                preview ??= new AssemblyPreview(transform, catalog);
-                preview.Show(assembling, step);
-                RectTransform imageRect = AppView.Rect(stage, "Board image");
-                AppView.Fill(imageRect);
-                var image = imageRect.gameObject.AddComponent<RawImage>();
-                image.texture = preview.Image;
-                image.raycastTarget = false;
-                var aspect = imageRect.gameObject.AddComponent<AspectRatioFitter>();
-                aspect.aspectRatio = 1;
-                aspect.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
-            }
-            else
-            {
-                if (assembling == null)
+                if (previewMode)
+                {
+                    preview ??= new AssemblyPreview(transform, catalog);
+                    preview.Show(assembling);
+                    RectTransform imageRect = AppView.Rect(stage, "Board image");
+                    AppView.Fill(imageRect);
+                    var image = imageRect.gameObject.AddComponent<RawImage>();
+                    image.texture = preview.Image;
+                    image.raycastTarget = false;
+                    var aspect = imageRect.gameObject.AddComponent<AspectRatioFitter>();
+                    aspect.aspectRatio = 1;
+                    aspect.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+                }
+                else if (assembling == null)
+                {
                     assembly.ShowTrackingProof();
+                }
                 else
+                {
                     assembly.ShowProject(assembling);
-                assembly.ShowStep(step);
+                }
+
+                ApplyWireView();
+                UpdateAssemblyVisibility();
             }
 
-            UpdateAssemblyVisibility();
             RectTransform controls = view.Card(body, "Board controls");
-            if (assembling != null)
+            if (available)
             {
                 stepTitle = view.Label(controls, "", 19, AppView.Mint);
                 stepInstruction = view.Label(controls, "", 18);
+                stepTerminals = view.Label(controls, "", 17, AppView.Secondary, TextAnchor.MiddleLeft);
                 RectTransform steps = view.Row(controls, "Step navigation");
                 previousButton = view.Button(steps, "السابقة", () => MoveStep(-1), size: 18, height: 48);
                 nextButton = view.Button(steps, "التالية", () => MoveStep(1), size: 18, height: 48);
-                view.Button(steps, "كل الأسلاك", () => SetStep(0), size: 18, height: 48);
-                view.Button(steps, "التفاصيل", () => Select(assembling), size: 18, height: 48);
+                Button circuitMode = view.Button(steps, "اعرض الدائرة كاملة", ToggleFullCircuit, size: 18, height: 48);
+                circuitModeCaption = circuitMode.GetComponentInChildren<ArabicLabel>();
+                if (assembling != null)
+                    view.Button(steps, "التفاصيل", () => Select(assembling), size: 18, height: 48);
                 RefreshStep();
-            }
-            else
-            {
-                view.Label(controls, "LED ومقاومة وأسلاك معايرة. ابدؤوا واللوحة غير موصولة بالطاقة.", 18);
             }
 
             RectTransform modes = view.Row(controls, "Tracking modes");
@@ -410,15 +441,20 @@ namespace MechaVision.UI
                     Show(Page.Tracking);
                 }, size: 18, height: 48);
             }
+
             Button calibration = view.Button(modes, "معايرة البورد", () => Show(Page.Calibration), size: 18, height: 48);
             calibration.interactable = tracker != null;
-            Button visibility = null;
-            visibility = view.Button(modes, VisibilityCaption(), () =>
+            if (available)
             {
-                overlayVisible = !overlayVisible;
-                UpdateAssemblyVisibility();
-                visibility.GetComponentInChildren<ArabicLabel>().SetContent(VisibilityCaption());
-            }, size: 17, height: 48);
+                Button visibility = null;
+                visibility = view.Button(modes, VisibilityCaption(), () =>
+                {
+                    overlayVisible = !overlayVisible;
+                    UpdateAssemblyVisibility();
+                    visibility.GetComponentInChildren<ArabicLabel>().SetContent(VisibilityCaption());
+                }, size: 17, height: 48);
+            }
+
             if (assembling != null)
                 view.Button(modes, "اختبار البورد", ResetProof, size: 17, height: 48);
         }
@@ -438,29 +474,105 @@ namespace MechaVision.UI
             assembling = null;
             overlayVisible = true;
             step = 0;
+            showFullCircuit = false;
             Show(Page.Tracking);
         }
 
-        private void MoveStep(int delta) => SetStep(CatalogNavigation.MoveStep(step, delta, assembling.assembly_steps.Length));
-
-        private void SetStep(int value)
+        private void MoveStep(int delta)
         {
-            step = value;
-            if (previewMode)
-                preview.UpdateStep(step);
-            else
-                assembly.ShowStep(step);
+            step = CatalogNavigation.MoveStep(step, delta, physicalPlan.assembly_steps.Length);
+            ApplyWireView();
             RefreshStep();
+        }
+
+        private void ToggleFullCircuit()
+        {
+            showFullCircuit = !showFullCircuit;
+            ApplyWireView();
+            RefreshStep();
+        }
+
+        private void ApplyWireView()
+        {
+            if (previewMode)
+            {
+                if (showFullCircuit)
+                    preview.ShowAll();
+                else
+                    preview.ShowStep(step);
+            }
+            else if (showFullCircuit)
+            {
+                assembly.ShowAll();
+            }
+            else
+            {
+                assembly.ShowStep(step, fadeCompleted: true);
+            }
         }
 
         private void RefreshStep()
         {
-            int count = assembling.assembly_steps.Length;
-            stepTitle.SetContent(step == 0 ? "جميع التوصيلات" : $"الخطوة {step} / {count}");
-            stepInstruction.SetContent(step == 0 ? "تظهر الآن كل أسلاك هذه الدائرة." :
-                assembling.assembly_steps[step - 1].instruction_ar);
-            previousButton.interactable = step == 0 || step > 1;
-            nextButton.interactable = step == 0 || step < count;
+            int count = physicalPlan.assembly_steps.Length;
+            string endpoints = "";
+            if (showFullCircuit)
+            {
+                stepTitle.SetContent("الدائرة كاملة");
+                stepInstruction.SetContent("تظهر كل التوصيلات. ارجع إلى الخطوات لمعرفة ثقوب كل سلك.");
+            }
+            else if (step == 0)
+            {
+                stepTitle.SetContent("التحضير • تركيب القطع");
+                endpoints = InsertionLabels(physicalPlan);
+                stepInstruction.SetContent(endpoints.Length == 0
+                    ? "افصل التغذية وجهّز القطع في مواضعها. تظهر الأسلاك مع الخطوات التالية."
+                    : "افصل التغذية وضع أرجل المكونات في الثقوب المحددة. تظهر الأسلاك مع الخطوات التالية.");
+            }
+            else
+            {
+                AssemblyStepData activeStep = physicalPlan.assembly_steps[step - 1];
+                stepTitle.SetContent($"الخطوة {step} / {count}");
+                stepInstruction.SetContent(activeStep.instruction_ar);
+                endpoints = WireEndpoints(physicalPlan, activeStep);
+            }
+
+            stepTerminals.SetContent(endpoints);
+            circuitModeCaption.SetContent(showFullCircuit ? "ارجع إلى الخطوات" : "اعرض الدائرة كاملة");
+            previousButton.interactable = !showFullCircuit && step > 0;
+            nextButton.interactable = !showFullCircuit && step < count;
+        }
+
+        private PhysicalLayoutPlan FindLayout(string projectId)
+        {
+            try
+            {
+                return PhysicalLayoutLoader.Find(projectId);
+            }
+            catch (Exception error) when (error is ArgumentException || error is InvalidOperationException)
+            {
+                Debug.LogException(error, this);
+                return null;
+            }
+        }
+
+        private static bool HasPhysicalSteps(PhysicalLayoutPlan plan) =>
+            plan != null && plan.IsPlanned && plan.assembly_steps != null && plan.assembly_steps.Length > 0;
+
+        private static string LayoutUnavailable(PhysicalLayoutPlan plan) =>
+            string.IsNullOrWhiteSpace(plan?.reason_ar) ? "خطة التوصيل المادية على البورد غير متاحة لهذا المشروع." : plan.reason_ar;
+
+        private static string InsertionLabels(PhysicalLayoutPlan plan)
+        {
+            PhysicalBoardProfile board = PhysicalLayoutLoader.BoardProfile;
+            return string.Join("\n", plan.components.SelectMany(component => component.pins
+                .Where(pin => board.TryGetHole(pin.terminal, out _))
+                .Select(pin => $"{component.instance_id}.{pin.id} → {pin.terminal}")));
+        }
+
+        private static string WireEndpoints(PhysicalLayoutPlan plan, AssemblyStepData step)
+        {
+            return string.Join("\n", plan.connections.Where(wire => step.connection_ids.Contains(wire.id))
+                .Select(wire => $"{wire.from} → {wire.to}"));
         }
 
         private void BuildCalibration()
@@ -470,6 +582,7 @@ namespace MechaVision.UI
             view.Label(card, "المرجع وموقع البورد", 26, AppView.Mint);
             view.Label(card, "اطبع العلامة بالحجم الفعلي 100%. تأكد من أن أبعادها 75 × 60 مم. ثبّتها قرب البورد على حامل صلب بحيث يتحركان معًا.");
             view.Label(card, "قِس من مركز العلامة إلى مركز سطح البورد. المحور X نحو يمين العلامة، وY إلى أعلى سطحها، وZ نحو حافتها العليا.", 19, AppView.Secondary);
+            view.Label(card, "قِس طول البورد وعرضه وتباعد مراكز الثقوب. افصل التغذية وافحص استمرارية القضبان بملتيميتر، وسجّل مواضع الانقطاع قبل استخدام الخطة على لوحتك.", 19, AppView.Amber);
             InputField[] offset = VectorInputs(card, "الإزاحة بالملليمتر", tracker.Calibration.OffsetMillimetres);
             InputField[] euler = VectorInputs(card, "الدوران بالدرجات", tracker.Calibration.RotationDegrees);
             ArabicLabel status = view.Label(card, "", 18, AppView.Amber);
@@ -523,7 +636,7 @@ namespace MechaVision.UI
         private static string ReviewName(ProjectData project) =>
             project.verification?.status == "verified" ? "مُتحقق منه" : "مسودة تعليمية";
 
-        private static string StepTerminals(ProjectData project, AssemblyStepData step)
+        private static string SchematicTerminals(ProjectData project, AssemblyStepData step)
         {
             return string.Join("\n", project.connections.Where(connection => step.connection_ids.Contains(connection.id))
                 .Select(connection => $"{connection.from} → {connection.to}"));

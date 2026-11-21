@@ -8,27 +8,25 @@ namespace MechaVision.Rendering
 {
     public sealed class BoardAssembly : MonoBehaviour
     {
-        private const int WireSegments = 24;
-        private const float HolePitch = 0.00254f;
-        private const float FirstRowOffset = 0.00381f;
-        private const int HoleColumns = 63;
-        private const string BoardShader = "MechaVision/BoardSurface";
+        private const float ActiveWidth = 0.0018f;
+        private const float FadedWidth = 0.0011f;
 
-        private readonly Dictionary<string, PartData> parts =
-            new Dictionary<string, PartData>(StringComparer.Ordinal);
-        private readonly Dictionary<string, Transform> anchors =
-            new Dictionary<string, Transform>(StringComparer.Ordinal);
-        private readonly Dictionary<string, LineRenderer> wires =
-            new Dictionary<string, LineRenderer>(StringComparer.Ordinal);
-        private readonly HashSet<string> visibleWires = new HashSet<string>(StringComparer.Ordinal);
+        private readonly Dictionary<string, PartData> parts = new(StringComparer.Ordinal);
+        private readonly Dictionary<string, Transform> anchors = new(StringComparer.Ordinal);
+        private readonly Dictionary<string, Vector3> externalTerminals = new(StringComparer.Ordinal);
+        private readonly Dictionary<string, WireDisplay> wires = new(StringComparer.Ordinal);
+        private readonly HashSet<string> completedWires = new(StringComparer.Ordinal);
+        private readonly HashSet<string> currentWires = new(StringComparer.Ordinal);
 
         private Transform boardRoot;
         private Transform contents;
         private Material surface;
+        private Material wireMaterial;
+        private Material fadedWireMaterial;
         private BoardGeometry geometry;
+        private PhysicalBoardProfile boardProfile;
         private AssemblyStepData[] steps = Array.Empty<AssemblyStepData>();
         private bool virtualBreadboard;
-        private int objectLayer;
 
         public void Configure(Transform root, CatalogData catalog, bool showVirtualBreadboard = false)
         {
@@ -37,7 +35,6 @@ namespace MechaVision.Rendering
 
             Clear();
             boardRoot = root;
-            objectLayer = root.gameObject.layer;
             virtualBreadboard = showVirtualBreadboard;
             parts.Clear();
             if (catalog?.parts == null)
@@ -46,28 +43,59 @@ namespace MechaVision.Rendering
                 parts.Add(part.id, part);
         }
 
+        public PhysicalLayoutPlan GetLayout(ProjectData project)
+        {
+            return PhysicalLayoutLoader.Find(project?.id);
+        }
+
+        public bool CanShowProject(ProjectData project)
+        {
+            return GetLayout(project)?.IsPlanned == true;
+        }
+
         public void ShowProject(ProjectData project)
         {
             if (project == null)
                 throw new ArgumentNullException(nameof(project));
-
-            ShowAssembly(project.id, project.components, project.connections, project.assembly_steps, parts);
+            ShowAssembly(GetLayout(project), project.id);
         }
 
-        public void ShowStep(int step)
+        public void ShowTrackingProof()
+        {
+            string projectId = PhysicalLayoutLoader.TrackingProofProjectId;
+            ShowAssembly(PhysicalLayoutLoader.Find(projectId), projectId);
+        }
+
+        public void ShowStep(int step, bool fadeCompleted = false)
         {
             if (step < 0 || step > steps.Length)
                 throw new ArgumentOutOfRangeException(nameof(step));
 
-            visibleWires.Clear();
-            for (int index = 0; index < step; index++)
+            completedWires.Clear();
+            currentWires.Clear();
+
+            if (step > 0)
             {
-                foreach (string id in steps[index].connection_ids)
-                    visibleWires.Add(id);
+                currentWires.UnionWith(steps[step - 1].connection_ids);
+                if (fadeCompleted)
+                {
+                    for (int index = 0; index < step - 1; index++)
+                        completedWires.UnionWith(steps[index].connection_ids);
+                }
             }
 
-            foreach (KeyValuePair<string, LineRenderer> wire in wires)
-                wire.Value.gameObject.SetActive(step == 0 || visibleWires.Contains(wire.Key));
+            foreach (KeyValuePair<string, WireDisplay> entry in wires)
+            {
+                bool current = currentWires.Contains(entry.Key);
+                bool faded = !current && completedWires.Contains(entry.Key);
+                UpdateWire(entry.Value, current || faded, faded);
+            }
+        }
+
+        public void ShowAll()
+        {
+            foreach (WireDisplay wire in wires.Values)
+                UpdateWire(wire, true, false);
         }
 
         public void SetAssemblyVisible(bool visible)
@@ -83,7 +111,9 @@ namespace MechaVision.Rendering
 
         public bool TryGetWire(string connectionId, out LineRenderer wire)
         {
-            return wires.TryGetValue(connectionId, out wire);
+            bool exists = wires.TryGetValue(connectionId, out WireDisplay display);
+            wire = exists ? display.Line : null;
+            return exists;
         }
 
         public void Clear()
@@ -97,77 +127,54 @@ namespace MechaVision.Rendering
             contents = null;
             geometry?.ReleaseMeshes();
             anchors.Clear();
+            externalTerminals.Clear();
             wires.Clear();
-            visibleWires.Clear();
+            completedWires.Clear();
+            currentWires.Clear();
             steps = Array.Empty<AssemblyStepData>();
         }
 
-        public void ShowTrackingProof()
+        private void ShowAssembly(PhysicalLayoutPlan plan, string projectId)
         {
-            var proofParts = new Dictionary<string, PartData>(StringComparer.Ordinal)
-            {
-                ["led"] = new PartData
-                {
-                    id = "led", geometry = "led", size_m = new Vector3(0.005f, 0.009f, 0.005f),
-                    pins = new[] { Pin("ANODE", -0.00127f), Pin("CATHODE", 0.00127f) }
-                },
-                ["resistor"] = new PartData
-                {
-                    id = "resistor", geometry = "resistor", size_m = new Vector3(0.005f, 0.0025f, 0.0025f),
-                    pins = new[] { Pin("A", -0.00381f), Pin("B", 0.00381f) }
-                }
-            };
-            ComponentData[] components =
-            {
-                new ComponentData
-                {
-                    id = "led1", part_id = "led", qty = 1, placement = "breadboard",
-                    position_m = new Vector3(-5.5f * HolePitch, 0, FirstRowOffset)
-                },
-                new ComponentData
-                {
-                    id = "r1", part_id = "resistor", qty = 1, placement = "breadboard",
-                    position_m = new Vector3(5.5f * HolePitch, 0, -FirstRowOffset)
-                }
-            };
-            ConnectionData[] connections =
-            {
-                new ConnectionData
-                {
-                    id = "proof_signal", from = "led1.ANODE", to = "r1.A", kind = "signal", color = "yellow"
-                },
-                new ConnectionData
-                {
-                    id = "proof_ground", from = "led1.CATHODE", to = "breadboard.F35", kind = "ground", color = "black"
-                },
-                new ConnectionData
-                {
-                    id = "proof_power", from = "r1.B", to = "breadboard.D45", kind = "power", color = "red"
-                }
-            };
-            ShowAssembly("TrackingProof", components, connections, Array.Empty<AssemblyStepData>(), proofParts);
-        }
-
-        private void ShowAssembly(
-            string name, ComponentData[] components, ConnectionData[] connections,
-            AssemblyStepData[] assemblySteps, Dictionary<string, PartData> registry)
-        {
+            Clear();
             if (boardRoot == null)
                 throw new InvalidOperationException("Configure BoardAssembly with a board root first.");
+            if (plan?.IsPlanned != true)
+                throw new InvalidOperationException($"Physical layout is unavailable for {projectId}.");
 
-            Clear();
-            EnsureMaterial();
-            contents = geometry.Node(name, boardRoot, Vector3.zero);
+            if (parts.Count == 0)
+            {
+                foreach (PartData part in CatalogLoader.Load().parts)
+                    parts.Add(part.id, part);
+            }
+
+            boardProfile = PhysicalLayoutLoader.BoardProfile;
+            surface ??= LoadMaterial("BoardSurface");
+            if (wireMaterial == null)
+            {
+                wireMaterial = LoadMaterial("BoardWire");
+                wireMaterial.SetFloat("_WriteDepth", 1f);
+                wireMaterial.renderQueue = (int)RenderQueue.Geometry;
+                fadedWireMaterial = new Material(wireMaterial) { name = "MechaVision BoardWire Faded" };
+                fadedWireMaterial.SetFloat("_WriteDepth", 0f);
+                fadedWireMaterial.renderQueue = (int)RenderQueue.Transparent;
+            }
+            geometry = new BoardGeometry(surface, boardRoot.gameObject.layer);
+            contents = geometry.Node(projectId, boardRoot, Vector3.zero);
             contents.gameObject.SetActive(false);
+
             try
             {
                 if (virtualBreadboard)
-                    geometry.Breadboard(contents, HolePitch, FirstRowOffset, HoleColumns);
-                foreach (ComponentData component in components)
-                    AddComponent(component, registry[component.part_id]);
-                foreach (ConnectionData connection in connections)
+                    geometry.Breadboard(contents, boardProfile);
+                foreach (PhysicalComponentData component in plan.components)
+                    AddComponent(component, parts[component.part_id]);
+                foreach (PhysicalJunctionData junction in plan.junctions ?? Array.Empty<PhysicalJunctionData>())
+                    AddJunction(junction);
+                foreach (PhysicalConnectionData connection in plan.connections)
                     AddWire(connection);
-                steps = assemblySteps ?? Array.Empty<AssemblyStepData>();
+                steps = plan.assembly_steps;
+                ShowStep(0);
                 contents.gameObject.SetActive(true);
             }
             catch
@@ -177,93 +184,114 @@ namespace MechaVision.Rendering
             }
         }
 
-        private static PinData Pin(string id, float x)
+        private static Material LoadMaterial(string resourceName)
         {
-            return new PinData { id = id, position_m = new Vector3(x, 0, 0) };
+            Shader shader = Resources.Load<Shader>($"MechaVision/{resourceName}");
+            if (shader == null)
+                throw new InvalidOperationException($"Missing renderer shader {resourceName}.");
+            return new Material(shader) { name = $"MechaVision {resourceName}" };
         }
 
-        private void EnsureMaterial()
+        private void AddComponent(PhysicalComponentData component, PartData part)
         {
-            if (surface == null)
+            Transform partRoot = geometry.Node(component.instance_id, contents, component.position_m);
+            bool mounted = component.placement == "breadboard";
+            var pins = new PinData[component.pins.Length];
+
+            for (int index = 0; index < pins.Length; index++)
             {
-                Shader shader = Resources.Load<Shader>(BoardShader);
-                if (shader == null)
-                    throw new InvalidOperationException($"Missing renderer shader {BoardShader}.");
-                surface = new Material(shader) { name = "MechaVision Board Surface" };
-            }
-            geometry = new BoardGeometry(surface, objectLayer);
-        }
-
-        private void AddComponent(ComponentData component, PartData part)
-        {
-            Transform partRoot = geometry.Node(component.id, contents, component.position_m);
-
-            foreach (PinData pin in part.pins)
-            {
-                Transform anchor = geometry.Node(pin.id, partRoot, pin.position_m);
-                anchors.Add($"{component.id}.{pin.id}", anchor);
-            }
-
-            geometry.Part(partRoot, part, component.placement == "breadboard");
-        }
-
-        private Transform ResolveAnchor(string endpoint)
-        {
-            if (anchors.TryGetValue(endpoint, out Transform anchor))
-                return anchor;
-
-            const string holePrefix = "breadboard.";
-            if (endpoint.StartsWith(holePrefix, StringComparison.Ordinal) &&
-                endpoint.Length > holePrefix.Length + 1)
-            {
-                char row = endpoint[holePrefix.Length];
-                if (row >= 'A' && row <= 'J' &&
-                    int.TryParse(endpoint.Substring(holePrefix.Length + 1), out int column) &&
-                    column >= 1 && column <= HoleColumns)
+                PhysicalPinData pin = component.pins[index];
+                string name = $"{component.instance_id}.{pin.id}";
+                Vector3 position;
+                if (mounted)
                 {
-                    float x = (column - (HoleColumns + 1) / 2) * HolePitch;
-                    float z = row >= 'F'
-                        ? FirstRowOffset + (row - 'F') * HolePitch
-                        : -FirstRowOffset - ('E' - row) * HolePitch;
-                    anchor = geometry.Node(endpoint, contents, new Vector3(x, 0, z));
-                    anchors.Add(endpoint, anchor);
-                    return anchor;
+                    if (!boardProfile.TryGetHole(pin.terminal, out position) ||
+                        (position - pin.position_m).sqrMagnitude > 0.0000000001f)
+                        throw new InvalidOperationException($"Pin {name} does not match hole {pin.terminal}.");
                 }
+                else
+                {
+                    if (!StringComparer.Ordinal.Equals(name, pin.terminal))
+                        throw new InvalidOperationException($"Invalid external terminal {pin.terminal}.");
+                    position = pin.position_m;
+                    externalTerminals.Add(name, position);
+                }
+
+                Vector3 localPosition = position - component.position_m;
+                Transform terminal = geometry.Node(pin.id, partRoot, localPosition);
+                anchors.Add(name, terminal);
+                pins[index] = new PinData { id = pin.id, position_m = localPosition };
             }
 
-            throw new InvalidOperationException($"Unknown wire endpoint {endpoint}.");
+            geometry.Part(partRoot, part, pins, mounted);
         }
 
-        private void AddWire(ConnectionData connection)
+        private void AddJunction(PhysicalJunctionData junction)
         {
-            Transform start = ResolveAnchor(connection.from);
-            Transform end = ResolveAnchor(connection.to);
+            Transform root = geometry.Node(junction.id, contents, junction.position_m);
+            var ports = new PinData[junction.ports.Length];
+            for (int index = 0; index < ports.Length; index++)
+            {
+                PhysicalPinData port = junction.ports[index];
+                string name = $"{junction.id}.{port.id}";
+                if (!StringComparer.Ordinal.Equals(name, port.terminal))
+                    throw new InvalidOperationException($"Invalid junction terminal {port.terminal}.");
+
+                externalTerminals.Add(name, port.position_m);
+                Vector3 localPosition = port.position_m - junction.position_m;
+                anchors.Add(name, geometry.Node(port.id, root, localPosition));
+                ports[index] = new PinData { id = port.id, position_m = localPosition };
+            }
+            geometry.Junction(root, junction.size_m, ports);
+        }
+
+        private Vector3 ResolveTerminal(string endpoint)
+        {
+            if (externalTerminals.TryGetValue(endpoint, out Vector3 position))
+                return position;
+
+            if (!boardProfile.TryGetHole(endpoint, out position))
+                throw new InvalidOperationException($"Unknown wire terminal {endpoint}.");
+
+            if (!anchors.ContainsKey(endpoint))
+                anchors.Add(endpoint, geometry.Node(endpoint, contents, position));
+            return position;
+        }
+
+        private void AddWire(PhysicalConnectionData connection)
+        {
+            Vector3 start = ResolveTerminal(connection.from);
+            Vector3 end = ResolveTerminal(connection.to);
+            Vector3[] waypoints = connection.via ?? Array.Empty<Vector3>();
             Transform wire = geometry.Node(connection.id, contents, Vector3.zero);
-            var line = wire.gameObject.AddComponent<LineRenderer>();
+            LineRenderer line = wire.gameObject.AddComponent<LineRenderer>();
             line.useWorldSpace = false;
-            line.widthMultiplier = 0.0016f;
-            line.positionCount = WireSegments + 1;
+            line.positionCount = waypoints.Length + 2;
+            line.numCornerVertices = 2;
             line.numCapVertices = 4;
             line.alignment = LineAlignment.View;
-            line.generateLightingData = true;
             line.shadowCastingMode = ShadowCastingMode.Off;
             line.receiveShadows = false;
-            geometry.Paint(line, WireColor(connection.color));
+            line.SetPosition(0, start);
+            for (int index = 0; index < waypoints.Length; index++)
+                line.SetPosition(index + 1, waypoints[index]);
+            line.SetPosition(line.positionCount - 1, end);
+            line.sharedMaterial = wireMaterial;
+            wires.Add(connection.id, new WireDisplay(line, WireColor(connection.color)));
+        }
 
-            Vector3 from = wire.InverseTransformPoint(start.position);
-            Vector3 to = wire.InverseTransformPoint(end.position);
-            float lift = Mathf.Clamp(Vector3.Distance(from, to) * 0.20f, 0.006f, 0.031f);
+        private void UpdateWire(WireDisplay wire, bool active, bool faded)
+        {
+            wire.Line.gameObject.SetActive(active);
+            if (!active)
+                return;
 
-            line.SetPosition(0, from);
-            for (int i = 1; i < WireSegments; i++)
-            {
-                float t = i / (float)WireSegments;
-                Vector3 position = Vector3.Lerp(from, to, t);
-                position.y += 4f * lift * t * (1f - t);
-                line.SetPosition(i, position);
-            }
-            line.SetPosition(WireSegments, to);
-            wires.Add(connection.id, line);
+            wire.Line.sharedMaterial = faded ? fadedWireMaterial : wireMaterial;
+            wire.Line.widthMultiplier = faded ? FadedWidth : ActiveWidth;
+            Color color = wire.Color;
+            color.a = faded ? 0.27f : 1f;
+            wire.Line.startColor = color;
+            wire.Line.endColor = color;
         }
 
         private static Color WireColor(string name)
@@ -275,6 +303,8 @@ namespace MechaVision.Rendering
                 case "yellow": return new Color(1f, 0.79f, 0.15f);
                 case "green": return new Color(0.2f, 0.79f, 0.42f);
                 case "blue": return new Color(0.19f, 0.53f, 1f);
+                case "orange": return new Color(1f, 0.45f, 0.08f);
+                case "purple": return new Color(0.69f, 0.32f, 0.88f);
                 default: return Color.white;
             }
         }
@@ -283,6 +313,8 @@ namespace MechaVision.Rendering
         {
             Clear();
             Release(surface);
+            Release(wireMaterial);
+            Release(fadedWireMaterial);
         }
 
         internal static void Release(UnityEngine.Object target)
@@ -293,6 +325,18 @@ namespace MechaVision.Rendering
                 Destroy(target);
             else
                 DestroyImmediate(target);
+        }
+
+        private sealed class WireDisplay
+        {
+            public WireDisplay(LineRenderer line, Color color)
+            {
+                Line = line;
+                Color = color;
+            }
+
+            public LineRenderer Line { get; }
+            public Color Color { get; }
         }
     }
 }
