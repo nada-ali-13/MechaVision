@@ -47,9 +47,9 @@ class TestGeometry(unittest.TestCase):
 
         def backend(resized):
             self.assertEqual(resized.shape, (25, 50, 3))
-            return {"corners_px": [[2, 3], [40, 3], [40, 20], [2, 20]]}
+            return {"corners_px": None, "rejected_corners_px": [[2, 3], [40, 3], [40, 20], [2, 20]]}
 
-        self.assertEqual(invoke(backend, image, 50)["corners_px"],
+        self.assertEqual(invoke(backend, image, 50)["rejected_corners_px"],
                          [[8, 12], [160, 12], [160, 80], [8, 80]])
 
 

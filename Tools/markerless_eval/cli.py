@@ -74,7 +74,7 @@ def invoke(backend, image, max_input_edge):
                          interpolation=cv2.INTER_AREA)
     result = dict(backend(reduced))
     sx, sy = width / reduced.shape[1], height / reduced.shape[0]
-    for key in ("corners_px", "raw_corners_px"):
+    for key in ("corners_px", "raw_corners_px", "rejected_corners_px"):
         if result.get(key) is not None:
             result[key] = [None if point is None else [point[0] * sx, point[1] * sy] for point in result[key]]
     if result.get("bbox_xyxy") is not None:
@@ -115,6 +115,7 @@ def write_visuals(out, frame, image, row, args):
     layers = (
         (frame.record.get("corners_px"), (65, 190, 255), "ref"),
         (row.get("corners_px"), (65, 245, 125), "pred"),
+        (row.get("rejected_corners_px"), (65, 80, 255), "reject"),
     )
     for quad, color, label in layers:
         if quad is None:
@@ -130,7 +131,10 @@ def write_visuals(out, frame, image, row, args):
     if row.get("bbox_xyxy") is not None and row.get("corners_px") is None:
         x1, y1, x2, y2 = (round(value) for value in row["bbox_xyxy"])
         cv2.rectangle(canvas, (x1, y1), (x2, y2), (65, 245, 125), 2)
-    banner = f"{args.backend}: {row['outcome'].replace('_', ' ')}"
+    status = row["outcome"].replace("_", " ")
+    if row["outcome"] == "unannotated":
+        status = "accepted quad" if row.get("corners_px") is not None else "no accepted quad"
+    banner = f"{args.backend}: {status}"
     cv2.putText(canvas, banner, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, .6, (0, 0, 0), 4, cv2.LINE_AA)
     cv2.putText(canvas, banner, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, .6, (255, 255, 255), 1, cv2.LINE_AA)
     overlay_name = f"{frame.id}-annotated.jpg"
