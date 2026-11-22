@@ -19,6 +19,7 @@ BACKENDS = {
     "classical": "classical_backend",
     "docaligner": "docaligner_backend",
     "breadboard": "breadboard_backend",
+    "region": "region_backend",
 }
 
 
