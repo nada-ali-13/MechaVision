@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:label="MechaVision ONNX benchmark" android:allowBackup="false" />
+    <instrumentation android:name=".Benchmark"
+        android:targetPackage="org.mechavision.benchmark"
+        android:label="Offline SA24 benchmark" />
+</manifest>
