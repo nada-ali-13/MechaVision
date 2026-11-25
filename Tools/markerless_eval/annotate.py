@@ -13,6 +13,7 @@ import webbrowser
 from hashlib import sha256
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
+from urllib.parse import urlsplit
 
 TOOL_DIRECTORY = Path(__file__).resolve().parent
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
@@ -215,6 +216,7 @@ def make_handler(session, secret):
             self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(body)))
             self.send_header("Cache-Control", "no-store")
+            self.send_header("Referrer-Policy", "no-referrer")
             self.send_header("X-Content-Type-Options", "nosniff")
             self.send_header("Content-Security-Policy", "default-src 'self'; img-src 'self' blob:; style-src 'self' 'unsafe-inline'")
             if image_digest is not None:
@@ -227,7 +229,8 @@ def make_handler(session, secret):
                             "application/json; charset=utf-8")
 
         def resource(self):
-            return self.path[len(prefix):] if self.path.startswith(prefix) else None
+            path = urlsplit(self.path).path
+            return path[len(prefix):] if path.startswith(prefix) else None
 
         def image_index(self, resource):
             if resource is not None and resource.startswith("image/"):
@@ -237,6 +240,13 @@ def make_handler(session, secret):
             return None
 
         def do_GET(self):
+            if urlsplit(self.path).path == prefix.rstrip("/"):
+                self.send_response(308)
+                self.send_header("Location", prefix)
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
             resource = self.resource()
             if resource == "":
                 self.send_bytes(200, (TOOL_DIRECTORY / "annotate.html").read_bytes(), "text/html; charset=utf-8")
@@ -247,7 +257,7 @@ def make_handler(session, secret):
             else:
                 index = self.image_index(resource)
                 if index is None:
-                    self.send_error(404)
+                    self.send_json(404, {"error": "استخدم الرابط الكامل الذي طبعه مُشغّل أداة التأشير."})
                     return
                 path = session.images[index][0]
                 try:

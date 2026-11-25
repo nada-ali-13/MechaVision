@@ -18,6 +18,8 @@ python Tools/markerless_eval/annotate.py --images "$session_dir" \
   --output "$session_dir/manifest.json"
 ```
 
+Open the full localhost link printed by the launcher on the computer running it. The page and JPEGs are served by that process. Keep the terminal open while labeling. The base port address alone returns a 404 because the annotation session uses a private link. Restarting the server generates a new link while saved annotations remain in the manifest. When the cloud workspace provides no browser preview, use a private local copy of the tool and photos on your own computer.
+
 Create a private `measurements.json` containing `board_id` with the same ID used in the annotator, numeric `width_mm` and `height_mm`, and `measurement_notes` describing the instrument, uncertainty and what was measured. Keep these fields blank in your own notes until you have the measured values. You can run the pixel-only comparison by omitting the measurements file.
 
 ## Run the fixed comparison

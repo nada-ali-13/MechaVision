@@ -163,9 +163,9 @@ async function loadPhoto(index) {
         decodedUrl = URL.createObjectURL(await response.blob());
         photo.src = decodedUrl;
         await photo.decode();
-    } catch {
+    } catch (error) {
         if (index === state.index)
-            report("تعذّر تحميل الصورة.", true);
+            report(`تعذّر تحميل الصورة (${error.message}). افتح الرابط الكامل من مُشغّل الأداة.`, true);
         return;
     } finally {
         if (decodedUrl)
@@ -177,6 +177,7 @@ async function loadPhoto(index) {
     state.photo = photo;
     canvas.width = photo.naturalWidth;
     canvas.height = photo.naturalHeight;
+    fitCanvas();
     if ((annotation?.width_px &&
         (annotation.width_px !== canvas.width || annotation.height_px !== canvas.height)) ||
         (annotation?.source?.sha256 && annotation.source.sha256 !== imageDigest)) {
@@ -308,8 +309,16 @@ for (const [index, button] of cornerButtons.entries())
 byId("photo").addEventListener("change", event => loadPhoto(Number(event.target.value)));
 byId("previous").addEventListener("click", () => loadPhoto(state.index - 1));
 byId("next").addEventListener("click", () => loadPhoto(state.index + 1));
-byId("zoom").addEventListener("change", event => {
-    canvas.style.width = `${100 * Number(event.target.value)}%`;
+function fitCanvas() {
+    const viewport = canvas.parentElement;
+    const maxHeight = Number.parseFloat(getComputedStyle(viewport).maxHeight);
+    const fitWidth = Math.min(viewport.clientWidth, maxHeight * canvas.width / canvas.height);
+    canvas.style.width = `${fitWidth * Number(byId("zoom").value)}px`;
+    canvas.style.marginInline = canvas.offsetWidth <= viewport.clientWidth ? "auto" : "0";
+}
+
+byId("zoom").addEventListener("change", () => {
+    fitCanvas();
     redraw();
 });
 byId("order").addEventListener("change", () => {
@@ -333,7 +342,10 @@ byId("remove-landmark").addEventListener("click", () => {
 });
 byId("save").addEventListener("click", save);
 canvas.addEventListener("click", markPixel);
-window.addEventListener("resize", redraw);
+window.addEventListener("resize", () => {
+    fitCanvas();
+    redraw();
+});
 window.addEventListener("beforeunload", event => {
     if (state.dirty) {
         event.preventDefault();
