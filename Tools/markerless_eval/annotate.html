@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MechaVision · تحديد زوايا البورد</title>
+    <style>
+        :root { color-scheme: dark; font: 16px system-ui, sans-serif; color: #eef4f6; background: #101a25; }
+        body { margin: 0 auto; padding: 12px 20px 24px; max-width: 1500px; }
+        h1 { font-size: 1.4rem; margin-block: 4px 10px; }
+        p { margin-block: 8px; }
+        header, .controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-block: 8px; }
+        button, select, input { color: inherit; background: #26384a; border: 1px solid #49647a; border-radius: 6px; padding: 7px 10px; font: inherit; }
+        button:enabled, select:enabled { cursor: pointer; }
+        button:disabled, input:disabled { opacity: .48; }
+        button[aria-pressed="true"], #save { color: #112823; background: #8be8cd; border-color: #8be8cd; }
+        #photo { max-width: min(60vw, 520px); }
+        .viewport { max-height: 67vh; overflow: auto; border: 1px solid #49647a; border-radius: 6px; background: #172435; direction: ltr; }
+        canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
+        #issues { color: #ffce8b; }
+        #coordinates { color: #b5c9d7; }
+        #session, code, .numbers { direction: ltr; unicode-bidi: isolate; }
+        #landmarks-form input { width: 7rem; }
+        [hidden] { display: none !important; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>تحديد زوايا البورد</h1>
+        <span id="session"></span>
+    </header>
+    <div class="controls">
+        <label for="photo">الصورة</label>
+        <select id="photo" class="numbers"></select>
+        <button id="previous" type="button">السابقة</button>
+        <button id="next" type="button">التالية</button>
+        <label for="zoom">التكبير</label>
+        <select id="zoom"><option value="1">ملاءمة العرض</option><option value="2">2×</option><option value="4">4×</option></select>
+        <label for="order">ترتيب الزوايا</label>
+        <select id="order"><option value="physical">الترتيب الفعلي</option><option value="image">حسب الصورة</option></select>
+    </div>
+    <p id="instructions"></p>
+    <div class="controls">
+        <span>الزاوية المختارة</span>
+        <button class="corner" data-index="0" type="button">1</button>
+        <button class="corner" data-index="1" type="button">2</button>
+        <button class="corner" data-index="2" type="button">3</button>
+        <button class="corner" data-index="3" type="button">4</button>
+        <button id="clear-corner" type="button">امسح الزاوية</button>
+        <output id="coordinates" class="numbers"></output>
+    </div>
+    <div class="viewport">
+        <canvas id="canvas" width="640" height="320" aria-label="صورة للتأشير على زوايا البورد"></canvas>
+    </div>
+    <details id="landmarks">
+        <summary>نقاط مرجعية اختيارية</summary>
+        <p>اختر مراكز ثقوب واضحة موزعة على جانبي الفجوة وعبر طول البورد. دوّن معرّف الثقب، ثم أدخل موضعه المقاس بالملليمتر من مركز سطح البورد. يتجه <code>X</code> من A1 إلى A63 ويتجه <code>Z</code> من A1 إلى J1. اضغط على مركز الفتحة الداكنة في الصورة. استخدم الموضع المقاس نفسه لهذا الثقب في كل صورة.</p>
+        <div class="controls" id="landmarks-form">
+            <label>المعرّف <input id="landmark-id" class="numbers" type="text" maxlength="80" placeholder="A10"></label>
+            <label><code>X</code> <input id="board-x" class="numbers" type="number" step="any"></label>
+            <label><code>Z</code> <input id="board-z" class="numbers" type="number" step="any"></label>
+            <button id="place-landmark" type="button">حدد موقع النقطة</button>
+            <button id="remove-landmark" type="button">احذف النقطة</button>
+            <select id="landmark-list" class="numbers" aria-label="النقاط المحفوظة في الصورة"><option value="">اختر نقطة</option></select>
+        </div>
+    </details>
+    <div class="controls">
+        <button id="no-board" type="button">هذه الصورة بلا بورد</button>
+        <button id="remove-label" type="button">استبعد الصورة من البيانات</button>
+        <button id="save" type="button">احفظ الوسوم</button>
+        <output id="status" role="status"></output>
+    </div>
+    <p id="issues" role="alert"></p>
+    <script src="annotate.js" defer></script>
+</body>
+</html>

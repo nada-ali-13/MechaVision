@@ -28,11 +28,7 @@ namespace MechaVision.UI
 
         public static int MoveStep(int step, int delta, int stepCount)
         {
-            if (stepCount <= 0 || delta == 0)
-                return Math.Max(0, Math.Min(step, stepCount));
-            if (step == 0)
-                return delta > 0 ? 1 : stepCount;
-            return (int)Math.Max(1, Math.Min((long)step + delta, stepCount));
+            return (int)Math.Max(0L, Math.Min((long)step + delta, stepCount));
         }
 
         private static string Normalize(string value)

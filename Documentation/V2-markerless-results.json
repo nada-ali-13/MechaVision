@@ -1,0 +1,5925 @@
+{
+  "schema_version": 1,
+  "manifest": "Tools/markerless_eval/fixtures/public_photos.json",
+  "runs": {
+    "breadboard": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "breadboard",
+        "source": "https://github.com/stonestephenson/Breadboard-Classifier",
+        "source_commit": "758d5a37913c4b929926721380223c537491cbbe",
+        "normalizer_source": "https://github.com/hartleyblakey/breadboard-normalizer",
+        "vendored_reference_revision": "7cc71d0",
+        "normalizer_source_sha256": "6da624b0d39f4a95b0eda356d70d9c504df70db0e2e53f6ae4d9d29c7d2b44a3",
+        "normalizer_license": "MIT (normalizer); Apache-2.0 (vendored ICP)",
+        "backend_output": "four image-space corners; no physical orientation guarantee",
+        "canonical_size_px": [
+          1024,
+          340
+        ],
+        "max_working_side_px": 1920,
+        "seed": {
+          "model": "fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+          "version": "1.1.1",
+          "sha256": "7f9f5a8935b2eb22b3ee0245d34996063f54562df390d34714af2d76928695bc",
+          "weights_bytes": 83084930,
+          "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+          "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+          "code_license": "Apache-2.0",
+          "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+          "weight_license": "Official project release. No separate weight license listed.",
+          "task": "four-corner heatmaps for documents",
+          "runtime": "ONNX Runtime 1.22.1",
+          "provider": "CPUExecutionProvider",
+          "intra_op_threads": 1,
+          "input_color": "rgb",
+          "peak_semantics": "Uncalibrated heatmap activations."
+        },
+        "quality": "upstream hole alignment grade (1, 0.75 or 0); not a probability",
+        "load_ms": 926.254896
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": null,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 8,
+        "positive_failures": 0,
+        "positive_without_corners": 0,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 8,
+        "order_passes": 8,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 32,
+          "mean": 15.211797066082989,
+          "median": 13.73592369445917,
+          "p95": 31.890617185266727,
+          "max": 52.207564432507766
+        },
+        "ordered_corner_error_px": {
+          "n": 32,
+          "mean": 15.211797066082989,
+          "median": 13.73592369445917,
+          "p95": 31.890617185266727,
+          "max": 52.207564432507766
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 32,
+          "mean": 4.124395295973843,
+          "median": 3.3358356136157363,
+          "p95": 9.684232550713546,
+          "max": 17.645512327474055
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 419.56185243333334,
+          "median": 411.405011,
+          "p95": 554.84062975,
+          "max": 597.331133
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              664.9918395996094,
+              257.5164894104004
+            ],
+            [
+              1793.5450927734375,
+              289.84421997070314
+            ],
+            [
+              1812.3016662597656,
+              3645.8409667968754
+            ],
+            [
+              702.0837432861329,
+              3693.9884399414063
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            14.43479836474771,
+            4.180603812451185,
+            13.264053118377472,
+            16.34110520518226
+          ],
+          "assessed_order_errors_px": [
+            14.43479836474771,
+            4.180603812451185,
+            13.264053118377472,
+            16.34110520518226
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.392743366609013,
+            1.0073546019654105,
+            3.27892786062246,
+            3.9024570420543836
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            400.379351,
+            395.634936,
+            400.671704
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              665.5959447224935,
+              932.3244094848633
+            ],
+            [
+              3696.2071736653647,
+              1029.3049494425456
+            ],
+            [
+              3712.8847757975263,
+              1986.3872528076172
+            ],
+            [
+              626.5647888183594,
+              1976.6471862792969
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            14.207794270540868,
+            29.58630221466664,
+            8.359091018131801,
+            23.06493692801609
+          ],
+          "assessed_order_errors_px": [
+            14.207794270540868,
+            29.58630221466664,
+            8.359091018131801,
+            23.06493692801609
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.6609983726398085,
+            8.727377637155268,
+            2.439057436988694,
+            5.69591828514206
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            404.619687,
+            417.631332,
+            411.940584
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              871.8854904174805,
+              551.9888559977214
+            ],
+            [
+              1853.6969502766929,
+              526.8256823221843
+            ],
+            [
+              2015.7588958740234,
+              3863.6311848958335
+            ],
+            [
+              679.9698511759441,
+              3840.8676147460938
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            31.576168305324362,
+            52.207564432507766,
+            6.088801985757863,
+            32.27494359408517
+          ],
+          "assessed_order_errors_px": [
+            31.576168305324362,
+            52.207564432507766,
+            6.088801985757863,
+            32.27494359408517
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            10.853721889506998,
+            17.645512327474055,
+            1.1252101293192895,
+            5.986013071695053
+          ],
+          "wb102_fit_accepted": false,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            428.837533,
+            445.904194,
+            436.283302
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              964.1010406494141,
+              454.1986038208008
+            ],
+            [
+              2017.424139404297,
+              472.9693084716797
+            ],
+            [
+              2011.1172180175781,
+              3671.019946289063
+            ],
+            [
+              958.6482696533203,
+              3687.3613403320314
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            5.043109201669406,
+            11.31664024603116,
+            7.970737480591162,
+            14.715125368723635
+          ],
+          "assessed_order_errors_px": [
+            5.043109201669406,
+            11.31664024603116,
+            7.970737480591162,
+            14.715125368723635
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.302386044645895,
+            2.9384636379588476,
+            2.0720312704322974,
+            3.7369229008867904
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            465.968102,
+            431.259739,
+            410.869438
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1117.1143849690757,
+              850.8968989054363
+            ],
+            [
+              1991.859563191732,
+              846.3349024454753
+            ],
+            [
+              2044.93408203125,
+              3568.9905802408857
+            ],
+            [
+              1146.2590535481772,
+              3595.721435546875
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            7.250622361511385,
+            9.792583385163898,
+            22.029232110402628,
+            2.8343000370558222
+          ],
+          "assessed_order_errors_px": [
+            7.250622361511385,
+            9.792583385163898,
+            22.029232110402628,
+            2.8343000370558222
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.2430352831610176,
+            3.078897863706151,
+            6.4821453359193635,
+            0.8518152526096539
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            383.771484,
+            402.628063,
+            387.959268
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              447.00775146484375,
+              834.2166900634766
+            ],
+            [
+              3445.2420552571616,
+              864.6997451782227
+            ],
+            [
+              3457.828776041667,
+              1843.2361602783203
+            ],
+            [
+              398.5565821329753,
+              1798.669179280599
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            10.23521969419064,
+            19.340179354064492,
+            9.202977779736159,
+            3.6960289818436234
+          ],
+          "assessed_order_errors_px": [
+            10.23521969419064,
+            19.340179354064492,
+            9.202977779736159,
+            3.6960289818436234
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.9277504971662207,
+            5.532386790911806,
+            2.4400606246114873,
+            1.037122459837881
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            422.211581,
+            422.150179,
+            427.595828
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              478.8156509399414,
+              1072.237777709961
+            ],
+            [
+              3848.076629638672,
+              1333.2566579182944
+            ],
+            [
+              3680.3237915039062,
+              2354.5550028483076
+            ],
+            [
+              483.19937388102215,
+              2128.401819864909
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            18.42676399853965,
+            21.920098799757863,
+            15.316706175855835,
+            16.78677253852722
+          ],
+          "assessed_order_errors_px": [
+            18.42676399853965,
+            21.920098799757863,
+            15.316706175855835,
+            16.78677253852722
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            4.284071493048904,
+            5.268468344876436,
+            4.2128180868997465,
+            4.1814912109129425
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            486.455071,
+            403.916571,
+            395.670547
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1001.6143798828125,
+              352.8182006835938
+            ],
+            [
+              2077.655712890625,
+              349.95059967041016
+            ],
+            [
+              2080.747137451172,
+              3593.104870605469
+            ],
+            [
+              1031.3628845214844,
+              3598.4968872070312
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            8.106881297640808,
+            6.430491425849409,
+            4.354639936050493,
+            26.422232691661165
+          ],
+          "assessed_order_errors_px": [
+            8.106881297640808,
+            6.430491425849409,
+            4.354639936050493,
+            26.422232691661165
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.0298091566298075,
+            1.6380160264370835,
+            1.1387802407682315,
+            6.86888492856989
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            402.014163,
+            462.30889,
+            399.158292
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              421.8170471191406,
+              321.3868408203125
+            ],
+            [
+              1493.6978759765625,
+              316.9223937988281
+            ],
+            [
+              1490.7216796875,
+              759.238525390625
+            ],
+            [
+              416.7110290527344,
+              757.9921875
+            ]
+          ],
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            558.833581,
+            549.960356,
+            597.331133
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              684.656005859375,
+              423.0108642578125
+            ],
+            [
+              1061.49853515625,
+              233.6936492919922
+            ],
+            [
+              1319.1817626953125,
+              445.36322021484375
+            ],
+            [
+              878.770751953125,
+              697.7808227539062
+            ]
+          ],
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            281.408369,
+            275.194657,
+            278.287638
+          ]
+        }
+      ]
+    },
+    "breadboard-960": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "breadboard",
+        "source": "https://github.com/stonestephenson/Breadboard-Classifier",
+        "source_commit": "758d5a37913c4b929926721380223c537491cbbe",
+        "normalizer_source": "https://github.com/hartleyblakey/breadboard-normalizer",
+        "vendored_reference_revision": "7cc71d0",
+        "normalizer_source_sha256": "6da624b0d39f4a95b0eda356d70d9c504df70db0e2e53f6ae4d9d29c7d2b44a3",
+        "normalizer_license": "MIT (normalizer); Apache-2.0 (vendored ICP)",
+        "backend_output": "four image-space corners; no physical orientation guarantee",
+        "canonical_size_px": [
+          1024,
+          340
+        ],
+        "max_working_side_px": 1920,
+        "required_wb102_grid_check": false,
+        "seed": {
+          "model": "fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+          "version": "1.1.1",
+          "sha256": "7f9f5a8935b2eb22b3ee0245d34996063f54562df390d34714af2d76928695bc",
+          "weights_bytes": 83084930,
+          "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+          "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+          "code_license": "Apache-2.0",
+          "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+          "weight_license": "Official project release. No separate weight license listed.",
+          "task": "four-corner heatmaps for documents",
+          "runtime": "ONNX Runtime 1.22.1",
+          "provider": "CPUExecutionProvider",
+          "intra_op_threads": 1,
+          "input_color": "rgb",
+          "peak_semantics": "Uncalibrated heatmap activations."
+        },
+        "quality": "upstream hole alignment grade (1, 0.75 or 0); not a probability",
+        "load_ms": 915.056978
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": 960,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 8,
+        "positive_failures": 0,
+        "positive_without_corners": 0,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 8,
+        "order_passes": 8,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 32,
+          "mean": 14.394844613622638,
+          "median": 13.81074745336065,
+          "p95": 27.287036368484774,
+          "max": 30.36345951126474
+        },
+        "ordered_corner_error_px": {
+          "n": 32,
+          "mean": 14.394844613622638,
+          "median": 13.81074745336065,
+          "p95": 27.287036368484774,
+          "max": 30.36345951126474
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 32,
+          "mean": 3.8517004093390423,
+          "median": 3.3770536398785103,
+          "p95": 8.857688693346649,
+          "max": 9.143646285405218
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 381.3164564,
+          "median": 373.1044385,
+          "p95": 591.1078529,
+          "max": 631.869481
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              663.8203948974609,
+              255.91851425170898
+            ],
+            [
+              1793.4243530273438,
+              286.55201110839846
+            ],
+            [
+              1811.13720703125,
+              3643.7755737304688
+            ],
+            [
+              702.1303985595704,
+              3691.5234008789066
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            16.00755785493575,
+            7.470201333735801,
+            13.194055818265479,
+            14.42743908845582
+          ],
+          "assessed_order_errors_px": [
+            16.00755785493575,
+            7.470201333735801,
+            13.194055818265479,
+            14.42743908845582
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.751080176412265,
+            1.7976388374823193,
+            3.281621286649282,
+            3.4481062367020607
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            380.771326,
+            373.464779,
+            375.389382
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              664.8497899373373,
+              931.2954584757488
+            ],
+            [
+              3694.5877075195317,
+              1028.9564768473308
+            ],
+            [
+              3711.840311686198,
+              1985.5430603027346
+            ],
+            [
+              625.5473454793295,
+              1975.2454121907554
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            15.456855879703472,
+            29.576151075545017,
+            8.89571749142289,
+            24.405971821231056
+          ],
+          "assessed_order_errors_px": [
+            15.456855879703472,
+            29.576151075545017,
+            8.89571749142289,
+            24.405971821231056
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.9887785629445185,
+            8.707540873524819,
+            2.603279079692634,
+            6.041741221992596
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            370.065006,
+            370.732265,
+            354.26513
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              874.0901947021486,
+              544.1881815592449
+            ],
+            [
+              1833.464050292969,
+              460.2425257364909
+            ],
+            [
+              2026.781463623047,
+              3881.967926025391
+            ],
+            [
+              677.0167668660482,
+              3871.231333414714
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            25.26832421910632,
+            30.36345951126474,
+            15.527111976201775,
+            6.239171437388645
+          ],
+          "assessed_order_errors_px": [
+            25.26832421910632,
+            30.36345951126474,
+            15.527111976201775,
+            6.239171437388645
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            9.04120269535111,
+            9.143646285405218,
+            2.6465422539677013,
+            1.3185427161831527
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            362.960959,
+            347.541219,
+            345.330013
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              962.3398681640625,
+              451.22384948730473
+            ],
+            [
+              2016.293133544922,
+              472.00178833007817
+            ],
+            [
+              2009.9189208984376,
+              3669.177575683594
+            ],
+            [
+              957.7413116455078,
+              3686.258532714844
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            5.664556557503822,
+            12.79108892408709,
+            8.369329441687016,
+            14.50786614964855
+          ],
+          "assessed_order_errors_px": [
+            5.664556557503822,
+            12.79108892408709,
+            8.369329441687016,
+            14.50786614964855
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.4567247397393552,
+            3.3172901486498723,
+            2.1930192529223786,
+            3.6858747123464406
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            362.603953,
+            360.493359,
+            400.486509
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1116.2707010904949,
+              851.0746002197267
+            ],
+            [
+              1991.5709177652996,
+              843.8544591267904
+            ],
+            [
+              2044.3599700927737,
+              3567.783610026042
+            ],
+            [
+              1144.9536641438804,
+              3594.3448384602866
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            6.66203099181777,
+            7.984336264111088,
+            23.21918047413798,
+            4.099032874183748
+          ],
+          "assessed_order_errors_px": [
+            6.66203099181777,
+            7.984336264111088,
+            23.21918047413798,
+            4.099032874183748
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.063562957709484,
+            2.512637868985555,
+            6.829141598099731,
+            1.2424779384157874
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            349.811173,
+            379.893947,
+            364.308682
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              445.4378445943197,
+              832.1518580118816
+            ],
+            [
+              3440.689341227214,
+              864.3789927164714
+            ],
+            [
+              3452.2521972656255,
+              1840.932591756185
+            ],
+            [
+              398.6584663391113,
+              1797.9902903238933
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            11.935068732438408,
+            19.898351397291865,
+            15.063421883033392,
+            3.320948486437467
+          ],
+          "assessed_order_errors_px": [
+            11.935068732438408,
+            19.898351397291865,
+            15.063421883033392,
+            3.320948486437467
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.436817131107148,
+            5.663965874864825,
+            4.007111389335846,
+            0.9265372686912985
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            375.131786,
+            383.690332,
+            381.571377
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              478.00149917602545,
+              1071.4120229085288
+            ],
+            [
+              3850.44428507487,
+              1331.6211700439453
+            ],
+            [
+              3674.376932779948,
+              2351.7237345377607
+            ],
+            [
+              485.5835278828939,
+              2126.624298095703
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            19.58091402928293,
+            24.790898186432475,
+            8.759726321244749,
+            18.767910087950835
+          ],
+          "assessed_order_errors_px": [
+            19.58091402928293,
+            24.790898186432475,
+            8.759726321244749,
+            18.767910087950835
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            4.541708334882507,
+            5.9206543373855265,
+            2.437394539145888,
+            4.717279723895229
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            382.488254,
+            372.570966,
+            379.445769
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1001.2681182861329,
+              350.51097564697267
+            ],
+            [
+              2077.0436828613283,
+              350.00686798095705
+            ],
+            [
+              2078.0501037597655,
+              3588.710046386719
+            ],
+            [
+              1030.1054992675781,
+              3598.140307617188
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            6.537553505831542,
+            7.026852733694214,
+            9.409818752417248,
+            25.41412433543549
+          ],
+          "assessed_order_errors_px": [
+            6.537553505831542,
+            7.026852733694214,
+            9.409818752417248,
+            25.41412433543549
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.6463891058687568,
+            1.7938394195833274,
+            2.471996196451227,
+            6.620270334461484
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            378.128896,
+            372.744098,
+            399.971561
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              418.3515625,
+              318.7831115722656
+            ],
+            [
+              1494.042724609375,
+              314.8419189453125
+            ],
+            [
+              1491.968017578125,
+              759.3963012695312
+            ],
+            [
+              414.7877502441406,
+              758.0241088867188
+            ]
+          ],
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            585.763405,
+            595.480583,
+            631.869481
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              681.225830078125,
+              424.0498352050781
+            ],
+            [
+              1059.253662109375,
+              234.07363891601562
+            ],
+            [
+              1317.263427734375,
+              445.9873962402344
+            ],
+            [
+              876.9827880859375,
+              697.97900390625
+            ]
+          ],
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            238.242618,
+            226.482354,
+            237.79451
+          ]
+        }
+      ]
+    },
+    "breadboard-grid": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "breadboard",
+        "source": "https://github.com/stonestephenson/Breadboard-Classifier",
+        "source_commit": "758d5a37913c4b929926721380223c537491cbbe",
+        "normalizer_source": "https://github.com/hartleyblakey/breadboard-normalizer",
+        "vendored_reference_revision": "7cc71d0",
+        "normalizer_source_sha256": "6da624b0d39f4a95b0eda356d70d9c504df70db0e2e53f6ae4d9d29c7d2b44a3",
+        "normalizer_license": "MIT (normalizer); Apache-2.0 (vendored ICP)",
+        "backend_output": "four image-space corners; no physical orientation guarantee",
+        "canonical_size_px": [
+          1024,
+          340
+        ],
+        "max_working_side_px": 1920,
+        "required_wb102_grid_check": true,
+        "seed": {
+          "model": "fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+          "version": "1.1.1",
+          "sha256": "7f9f5a8935b2eb22b3ee0245d34996063f54562df390d34714af2d76928695bc",
+          "weights_bytes": 83084930,
+          "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+          "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+          "code_license": "Apache-2.0",
+          "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+          "weight_license": "Official project release. No separate weight license listed.",
+          "task": "four-corner heatmaps for documents",
+          "runtime": "ONNX Runtime 1.22.1",
+          "provider": "CPUExecutionProvider",
+          "intra_op_threads": 1,
+          "input_color": "rgb",
+          "peak_semantics": "Uncalibrated heatmap activations."
+        },
+        "quality": "upstream hole alignment grade (1, 0.75 or 0); not a probability",
+        "load_ms": 1419.826885
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": null,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 7,
+        "positive_failures": 1,
+        "positive_without_corners": 1,
+        "negative_false_positives": 0,
+        "inference_errors": 0,
+        "order_comparable_images": 7,
+        "order_passes": 7,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 28,
+          "mean": 13.022500992749304,
+          "median": 12.290346682204316,
+          "p95": 25.247179174385384,
+          "max": 29.58630221466664
+        },
+        "ordered_corner_error_px": {
+          "n": 28,
+          "mean": 13.022500992749304,
+          "median": 12.290346682204316,
+          "p95": 25.247179174385384,
+          "max": 29.58630221466664
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 28,
+          "mean": 3.4417925733274126,
+          "median": 3.1789128621643057,
+          "p95": 6.733526071142205,
+          "max": 8.727377637155268
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 403.1221589,
+          "median": 395.966548,
+          "p95": 550.99643125,
+          "max": 569.450871
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              664.9918395996094,
+              257.5164894104004
+            ],
+            [
+              1793.5450927734375,
+              289.84421997070314
+            ],
+            [
+              1812.3016662597656,
+              3645.8409667968754
+            ],
+            [
+              702.0837432861329,
+              3693.9884399414063
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            14.43479836474771,
+            4.180603812451185,
+            13.264053118377472,
+            16.34110520518226
+          ],
+          "assessed_order_errors_px": [
+            14.43479836474771,
+            4.180603812451185,
+            13.264053118377472,
+            16.34110520518226
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.392743366609013,
+            1.0073546019654105,
+            3.27892786062246,
+            3.9024570420543836
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            394.065066,
+            413.796144,
+            397.86803
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              665.5959447224935,
+              932.3244094848633
+            ],
+            [
+              3696.2071736653647,
+              1029.3049494425456
+            ],
+            [
+              3712.8847757975263,
+              1986.3872528076172
+            ],
+            [
+              626.5647888183594,
+              1976.6471862792969
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            14.207794270540868,
+            29.58630221466664,
+            8.359091018131801,
+            23.06493692801609
+          ],
+          "assessed_order_errors_px": [
+            14.207794270540868,
+            29.58630221466664,
+            8.359091018131801,
+            23.06493692801609
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.6609983726398085,
+            8.727377637155268,
+            2.439057436988694,
+            5.69591828514206
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            380.369682,
+            392.62562,
+            381.284597
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            421.469564,
+            407.01026,
+            416.077694
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              964.1010406494141,
+              454.1986038208008
+            ],
+            [
+              2017.424139404297,
+              472.9693084716797
+            ],
+            [
+              2011.1172180175781,
+              3671.019946289063
+            ],
+            [
+              958.6482696533203,
+              3687.3613403320314
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            5.043109201669406,
+            11.31664024603116,
+            7.970737480591162,
+            14.715125368723635
+          ],
+          "assessed_order_errors_px": [
+            5.043109201669406,
+            11.31664024603116,
+            7.970737480591162,
+            14.715125368723635
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.302386044645895,
+            2.9384636379588476,
+            2.0720312704322974,
+            3.7369229008867904
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            420.447386,
+            406.130039,
+            388.747431
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1117.1143849690757,
+              850.8968989054363
+            ],
+            [
+              1991.859563191732,
+              846.3349024454753
+            ],
+            [
+              2044.93408203125,
+              3568.9905802408857
+            ],
+            [
+              1146.2590535481772,
+              3595.721435546875
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            7.250622361511385,
+            9.792583385163898,
+            22.029232110402628,
+            2.8343000370558222
+          ],
+          "assessed_order_errors_px": [
+            7.250622361511385,
+            9.792583385163898,
+            22.029232110402628,
+            2.8343000370558222
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.2430352831610176,
+            3.078897863706151,
+            6.4821453359193635,
+            0.8518152526096539
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            367.928153,
+            368.506518,
+            368.595452
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              447.00775146484375,
+              834.2166900634766
+            ],
+            [
+              3445.2420552571616,
+              864.6997451782227
+            ],
+            [
+              3457.828776041667,
+              1843.2361602783203
+            ],
+            [
+              398.5565821329753,
+              1798.669179280599
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            10.23521969419064,
+            19.340179354064492,
+            9.202977779736159,
+            3.6960289818436234
+          ],
+          "assessed_order_errors_px": [
+            10.23521969419064,
+            19.340179354064492,
+            9.202977779736159,
+            3.6960289818436234
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.9277504971662207,
+            5.532386790911806,
+            2.4400606246114873,
+            1.037122459837881
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            448.115325,
+            434.129043,
+            423.474397
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              478.8156509399414,
+              1072.237777709961
+            ],
+            [
+              3848.076629638672,
+              1333.2566579182944
+            ],
+            [
+              3680.3237915039062,
+              2354.5550028483076
+            ],
+            [
+              483.19937388102215,
+              2128.401819864909
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            18.42676399853965,
+            21.920098799757863,
+            15.316706175855835,
+            16.78677253852722
+          ],
+          "assessed_order_errors_px": [
+            18.42676399853965,
+            21.920098799757863,
+            15.316706175855835,
+            16.78677253852722
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            4.284071493048904,
+            5.268468344876436,
+            4.2128180868997465,
+            4.1814912109129425
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            398.976368,
+            403.912402,
+            389.414057
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1001.6143798828125,
+              352.8182006835938
+            ],
+            [
+              2077.655712890625,
+              349.95059967041016
+            ],
+            [
+              2080.747137451172,
+              3593.104870605469
+            ],
+            [
+              1031.3628845214844,
+              3598.4968872070312
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            8.106881297640808,
+            6.430491425849409,
+            4.354639936050493,
+            26.422232691661165
+          ],
+          "assessed_order_errors_px": [
+            8.106881297640808,
+            6.430491425849409,
+            4.354639936050493,
+            26.422232691661165
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.0298091566298075,
+            1.6380160264370835,
+            1.1387802407682315,
+            6.86888492856989
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            391.911465,
+            388.96819,
+            384.897507
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "true_negative",
+          "corner_order": "image",
+          "corners_px": null,
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            569.450871,
+            549.403711,
+            552.299566
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "true_negative",
+          "corner_order": "image",
+          "corners_px": null,
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            271.120323,
+            293.806499,
+            268.863407
+          ]
+        }
+      ]
+    },
+    "breadboard-grid-960": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "breadboard",
+        "source": "https://github.com/stonestephenson/Breadboard-Classifier",
+        "source_commit": "758d5a37913c4b929926721380223c537491cbbe",
+        "normalizer_source": "https://github.com/hartleyblakey/breadboard-normalizer",
+        "vendored_reference_revision": "7cc71d0",
+        "normalizer_source_sha256": "6da624b0d39f4a95b0eda356d70d9c504df70db0e2e53f6ae4d9d29c7d2b44a3",
+        "normalizer_license": "MIT (normalizer); Apache-2.0 (vendored ICP)",
+        "backend_output": "four image-space corners; no physical orientation guarantee",
+        "canonical_size_px": [
+          1024,
+          340
+        ],
+        "max_working_side_px": 1920,
+        "required_wb102_grid_check": true,
+        "seed": {
+          "model": "fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+          "version": "1.1.1",
+          "sha256": "7f9f5a8935b2eb22b3ee0245d34996063f54562df390d34714af2d76928695bc",
+          "weights_bytes": 83084930,
+          "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+          "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+          "code_license": "Apache-2.0",
+          "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+          "weight_license": "Official project release. No separate weight license listed.",
+          "task": "four-corner heatmaps for documents",
+          "runtime": "ONNX Runtime 1.22.1",
+          "provider": "CPUExecutionProvider",
+          "intra_op_threads": 1,
+          "input_color": "rgb",
+          "peak_semantics": "Uncalibrated heatmap activations."
+        },
+        "quality": "upstream hole alignment grade (1, 0.75 or 0); not a probability",
+        "load_ms": 1097.924426
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": 960,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 8,
+        "positive_failures": 0,
+        "positive_without_corners": 0,
+        "negative_false_positives": 0,
+        "inference_errors": 0,
+        "order_comparable_images": 8,
+        "order_passes": 8,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 32,
+          "mean": 14.394844613622638,
+          "median": 13.81074745336065,
+          "p95": 27.287036368484774,
+          "max": 30.36345951126474
+        },
+        "ordered_corner_error_px": {
+          "n": 32,
+          "mean": 14.394844613622638,
+          "median": 13.81074745336065,
+          "p95": 27.287036368484774,
+          "max": 30.36345951126474
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 32,
+          "mean": 3.8517004093390423,
+          "median": 3.3770536398785103,
+          "p95": 8.857688693346649,
+          "max": 9.143646285405218
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 373.0450968333334,
+          "median": 364.81038950000004,
+          "p95": 549.4685991499999,
+          "max": 571.200857
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              663.8203948974609,
+              255.91851425170898
+            ],
+            [
+              1793.4243530273438,
+              286.55201110839846
+            ],
+            [
+              1811.13720703125,
+              3643.7755737304688
+            ],
+            [
+              702.1303985595704,
+              3691.5234008789066
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            16.00755785493575,
+            7.470201333735801,
+            13.194055818265479,
+            14.42743908845582
+          ],
+          "assessed_order_errors_px": [
+            16.00755785493575,
+            7.470201333735801,
+            13.194055818265479,
+            14.42743908845582
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.751080176412265,
+            1.7976388374823193,
+            3.281621286649282,
+            3.4481062367020607
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            361.00516,
+            360.41033,
+            366.402666
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              664.8497899373373,
+              931.2954584757488
+            ],
+            [
+              3694.5877075195317,
+              1028.9564768473308
+            ],
+            [
+              3711.840311686198,
+              1985.5430603027346
+            ],
+            [
+              625.5473454793295,
+              1975.2454121907554
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            15.456855879703472,
+            29.576151075545017,
+            8.89571749142289,
+            24.405971821231056
+          ],
+          "assessed_order_errors_px": [
+            15.456855879703472,
+            29.576151075545017,
+            8.89571749142289,
+            24.405971821231056
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.9887785629445185,
+            8.707540873524819,
+            2.603279079692634,
+            6.041741221992596
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            364.101041,
+            362.68074,
+            370.60066
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              874.0901947021486,
+              544.1881815592449
+            ],
+            [
+              1833.464050292969,
+              460.2425257364909
+            ],
+            [
+              2026.781463623047,
+              3881.967926025391
+            ],
+            [
+              677.0167668660482,
+              3871.231333414714
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            25.26832421910632,
+            30.36345951126474,
+            15.527111976201775,
+            6.239171437388645
+          ],
+          "assessed_order_errors_px": [
+            25.26832421910632,
+            30.36345951126474,
+            15.527111976201775,
+            6.239171437388645
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            9.04120269535111,
+            9.143646285405218,
+            2.6465422539677013,
+            1.3185427161831527
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            364.801599,
+            389.894899,
+            369.145555
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              962.3398681640625,
+              451.22384948730473
+            ],
+            [
+              2016.293133544922,
+              472.00178833007817
+            ],
+            [
+              2009.9189208984376,
+              3669.177575683594
+            ],
+            [
+              957.7413116455078,
+              3686.258532714844
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            5.664556557503822,
+            12.79108892408709,
+            8.369329441687016,
+            14.50786614964855
+          ],
+          "assessed_order_errors_px": [
+            5.664556557503822,
+            12.79108892408709,
+            8.369329441687016,
+            14.50786614964855
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.4567247397393552,
+            3.3172901486498723,
+            2.1930192529223786,
+            3.6858747123464406
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            377.788825,
+            433.351807,
+            412.334332
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1116.2707010904949,
+              851.0746002197267
+            ],
+            [
+              1991.5709177652996,
+              843.8544591267904
+            ],
+            [
+              2044.3599700927737,
+              3567.783610026042
+            ],
+            [
+              1144.9536641438804,
+              3594.3448384602866
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            6.66203099181777,
+            7.984336264111088,
+            23.21918047413798,
+            4.099032874183748
+          ],
+          "assessed_order_errors_px": [
+            6.66203099181777,
+            7.984336264111088,
+            23.21918047413798,
+            4.099032874183748
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.063562957709484,
+            2.512637868985555,
+            6.829141598099731,
+            1.2424779384157874
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            348.39637,
+            347.195723,
+            344.452023
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              445.4378445943197,
+              832.1518580118816
+            ],
+            [
+              3440.689341227214,
+              864.3789927164714
+            ],
+            [
+              3452.2521972656255,
+              1840.932591756185
+            ],
+            [
+              398.6584663391113,
+              1797.9902903238933
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            11.935068732438408,
+            19.898351397291865,
+            15.063421883033392,
+            3.320948486437467
+          ],
+          "assessed_order_errors_px": [
+            11.935068732438408,
+            19.898351397291865,
+            15.063421883033392,
+            3.320948486437467
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.436817131107148,
+            5.663965874864825,
+            4.007111389335846,
+            0.9265372686912985
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            355.353587,
+            376.36581,
+            369.218215
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              478.00149917602545,
+              1071.4120229085288
+            ],
+            [
+              3850.44428507487,
+              1331.6211700439453
+            ],
+            [
+              3674.376932779948,
+              2351.7237345377607
+            ],
+            [
+              485.5835278828939,
+              2126.624298095703
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            19.58091402928293,
+            24.790898186432475,
+            8.759726321244749,
+            18.767910087950835
+          ],
+          "assessed_order_errors_px": [
+            19.58091402928293,
+            24.790898186432475,
+            8.759726321244749,
+            18.767910087950835
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            4.541708334882507,
+            5.9206543373855265,
+            2.437394539145888,
+            4.717279723895229
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            357.372281,
+            360.804676,
+            366.8552
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1001.2681182861329,
+              350.51097564697267
+            ],
+            [
+              2077.0436828613283,
+              350.00686798095705
+            ],
+            [
+              2078.0501037597655,
+              3588.710046386719
+            ],
+            [
+              1030.1054992675781,
+              3598.140307617188
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            6.537553505831542,
+            7.026852733694214,
+            9.409818752417248,
+            25.41412433543549
+          ],
+          "assessed_order_errors_px": [
+            6.537553505831542,
+            7.026852733694214,
+            9.409818752417248,
+            25.41412433543549
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.6463891058687568,
+            1.7938394195833274,
+            2.471996196451227,
+            6.620270334461484
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            372.03348,
+            364.81918,
+            358.135517
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "true_negative",
+          "corner_order": "image",
+          "corners_px": null,
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            543.571701,
+            571.200857,
+            554.293334
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "true_negative",
+          "corner_order": "image",
+          "corners_px": null,
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            223.440513,
+            222.618549,
+            222.708275
+          ]
+        }
+      ]
+    },
+    "classical": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "classical",
+        "algorithm": "convex contours with repeated isolated dark-pit evidence",
+        "backend_output": "four image-space corners; physical orientation unresolved",
+        "quality": "uncalibrated geometry-and-texture ranking score",
+        "options": {
+          "max_dimension": 960,
+          "min_area_fraction": 0.015,
+          "expected_aspect": null,
+          "min_quality": 0.42
+        },
+        "load_ms": 0.009344
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": null,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 2,
+        "positive_failures": 6,
+        "positive_without_corners": 4,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 4,
+        "order_passes": 2,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 16,
+          "mean": 514.1809069674525,
+          "median": 11.244571097370066,
+          "p95": 1825.4383690256532,
+          "max": 1915.7454683323072
+        },
+        "ordered_corner_error_px": {
+          "n": 16,
+          "mean": 514.1809069674525,
+          "median": 11.244571097370066,
+          "p95": 1825.4383690256532,
+          "max": 1915.7454683323072
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 16,
+          "mean": 562.9783839608804,
+          "median": 4.465008259888446,
+          "p95": 2156.937971253783,
+          "max": 4152.337577037307
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 37.2728591,
+          "median": 40.795981999999995,
+          "p95": 57.66462685,
+          "max": 60.123436
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              680.4000244140625,
+              260.3999938964844
+            ],
+            [
+              1780.800048828125,
+              289.79998779296875
+            ],
+            [
+              1814.4000244140625,
+              3637.199951171875
+            ],
+            [
+              718.2000122070312,
+              3683.39990234375
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            1.5231794655348558,
+            13.85203282840088,
+            8.637109366339251,
+            6.648284186681046
+          ],
+          "assessed_order_errors_px": [
+            1.5231794655348558,
+            13.85203282840088,
+            8.637109366339251,
+            6.648284186681046
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            0.37521019172944564,
+            3.4828142639192623,
+            2.2141752530307754,
+            1.639218396704593
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            48.014874,
+            50.960732,
+            47.990606
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            40.090689,
+            36.82068,
+            35.166977
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            46.95708,
+            39.05928,
+            38.039427
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              974.4000244140625,
+              449.3999938964844
+            ],
+            [
+              2020.199951171875,
+              478.79998779296875
+            ],
+            [
+              2011.800048828125,
+              3662.39990234375
+            ],
+            [
+              966.0,
+              3670.800048828125
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            6.596994166427867,
+            6.8029897065809015,
+            7.720122601401543,
+            5.571309737385294
+          ],
+          "assessed_order_errors_px": [
+            6.596994166427867,
+            6.8029897065809015,
+            7.720122601401543,
+            5.571309737385294
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.7172363334991965,
+            1.8029163321791304,
+            2.04003582739949,
+            1.432631150788067
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            57.258602,
+            60.123436,
+            57.996829
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1141.666748046875,
+              2762.5
+            ],
+            [
+              2000.0,
+              2633.33349609375
+            ],
+            [
+              1866.666748046875,
+              3745.83349609375
+            ],
+            [
+              1150.0,
+              3600.0
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            1915.7454683323072,
+            1795.336002590102,
+            235.41557671675807,
+            5.0990195135927845
+          ],
+          "assessed_order_errors_px": [
+            1915.7454683323072,
+            1795.336002590102,
+            235.41557671675807,
+            5.0990195135927845
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            1273.340947202821,
+            934.598546447724,
+            158.70010844962036,
+            5.44720225585763
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            49.247393,
+            48.6764,
+            47.708965
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1645.8333740234375,
+              991.6666870117188
+            ],
+            [
+              2741.666748046875,
+              1004.1666870117188
+            ],
+            [
+              2654.166748046875,
+              1462.5
+            ],
+            [
+              1725.0,
+              1366.666748046875
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            1210.8711365663883,
+            712.5391424100322,
+            897.9087623365151,
+            1396.6273809547934
+          ],
+          "assessed_order_errors_px": [
+            1210.8711365663883,
+            712.5391424100322,
+            897.9087623365151,
+            1396.6273809547934
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            1491.8047693259418,
+            343.3023020140756,
+            633.4184528914869,
+            4152.337577037307
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            34.493683,
+            33.559399,
+            34.668357
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            39.375939,
+            41.882562,
+            41.962071
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            41.501275,
+            41.780276,
+            43.3691
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              294.0,
+              244.0
+            ],
+            [
+              1626.0,
+              246.0
+            ],
+            [
+              1622.0,
+              834.0
+            ],
+            [
+              292.0,
+              834.0
+            ]
+          ],
+          "inference_ms": [
+            12.191713,
+            12.145364,
+            13.099067
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              302.0,
+              94.0
+            ],
+            [
+              1612.0,
+              94.0
+            ],
+            [
+              1614.0,
+              980.0
+            ],
+            [
+              306.0,
+              984.0
+            ]
+          ],
+          "inference_ms": [
+            7.842324,
+            7.757366,
+            8.445307
+          ]
+        }
+      ]
+    },
+    "classical-upstream": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "breadboard",
+        "source": "https://github.com/stonestephenson/Breadboard-Classifier",
+        "source_commit": "758d5a37913c4b929926721380223c537491cbbe",
+        "normalizer_source": "https://github.com/hartleyblakey/breadboard-normalizer",
+        "vendored_reference_revision": "7cc71d0",
+        "normalizer_source_sha256": "6da624b0d39f4a95b0eda356d70d9c504df70db0e2e53f6ae4d9d29c7d2b44a3",
+        "normalizer_license": "MIT (normalizer); Apache-2.0 (vendored ICP)",
+        "backend_output": "four image-space corners; no physical orientation guarantee",
+        "canonical_size_px": [
+          1024,
+          340
+        ],
+        "max_working_side_px": 1920,
+        "required_wb102_grid_check": false,
+        "seed": {
+          "algorithm": "convex contours with repeated isolated dark-pit evidence",
+          "backend_output": "four image-space corners; physical orientation unresolved",
+          "quality": "uncalibrated geometry-and-texture ranking score",
+          "options": {
+            "max_dimension": 960,
+            "min_area_fraction": 0.015,
+            "expected_aspect": null,
+            "min_quality": 0.42
+          }
+        },
+        "quality": "upstream hole alignment grade (1, 0.75 or 0); not a probability",
+        "load_ms": 776.430095
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": null,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 2,
+        "positive_failures": 6,
+        "positive_without_corners": 5,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 3,
+        "order_passes": 2,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 12,
+          "mean": 337.17940764057846,
+          "median": 13.500160394771964,
+          "p95": 1851.0550614586098,
+          "max": 1916.9331314742012
+        },
+        "ordered_corner_error_px": {
+          "n": 12,
+          "mean": 337.17940764057846,
+          "median": 13.500160394771964,
+          "p95": 1851.0550614586098,
+          "max": 1916.9331314742012
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 12,
+          "mean": 199.78588877939728,
+          "median": 3.6094154508760394,
+          "p95": 1087.8145023512443,
+          "max": 1274.1418607593605
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 177.26782366666666,
+          "median": 122.7538035,
+          "p95": 380.04355035,
+          "max": 408.996302
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              666.160336303711,
+              259.4531959533692
+            ],
+            [
+              1793.5267639160156,
+              291.3505828857422
+            ],
+            [
+              1815.6000915527345,
+              3649.9643188476566
+            ],
+            [
+              701.165121459961,
+              3697.771618652344
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            12.932500399863711,
+            2.691349742509695,
+            14.067820389680216,
+            19.96701743368418
+          ],
+          "assessed_order_errors_px": [
+            12.932500399863711,
+            2.691349742509695,
+            14.067820389680216,
+            19.96701743368418
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.058658996684924,
+            0.6498775989120347,
+            3.4470475896997055,
+            4.75291629129389
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            320.682883,
+            328.353771,
+            386.01279
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            72.653083,
+            70.654389,
+            70.463059
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            75.893997,
+            73.888041,
+            75.583077
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              963.3418029785157,
+              452.3138397216797
+            ],
+            [
+              2017.2346984863282,
+              472.6543212890625
+            ],
+            [
+              2011.0436462402345,
+              3670.6351684570313
+            ],
+            [
+              958.6448730468751,
+              3687.5443725585938
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            4.839935361678753,
+            11.645975783736048,
+            7.848904849850054,
+            14.859035570342261
+          ],
+          "assessed_order_errors_px": [
+            4.839935361678753,
+            11.645975783736048,
+            7.848904849850054,
+            14.859035570342261
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.248780593831226,
+            3.020662188920727,
+            2.0439481636667636,
+            3.7717833120523734
+          ],
+          "wb102_fit_accepted": true,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            295.030808,
+            299.653393,
+            299.461844
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1139.8262023925781,
+              2763.7163798014326
+            ],
+            [
+              1996.4057922363281,
+              2635.1547241210938
+            ],
+            [
+              1863.8159434000652,
+              3746.178181966146
+            ],
+            [
+              1148.3900705973308,
+              3600.382741292318
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            1916.9331314742012,
+            1797.1548223549441,
+            237.7952110769408,
+            5.417187249510962
+          ],
+          "assessed_order_errors_px": [
+            1916.9331314742012,
+            1797.1548223549441,
+            237.7952110769408,
+            5.417187249510962
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            1274.1418607593605,
+            935.3648454718771,
+            159.69014007615138,
+            6.240144310316851
+          ],
+          "wb102_fit_accepted": false,
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            211.821612,
+            212.130109,
+            211.161824
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            69.47192,
+            67.638265,
+            68.065502
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            74.579407,
+            72.753555,
+            73.006147
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            78.002047,
+            78.160317,
+            75.524331
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              294.0,
+              244.0
+            ],
+            [
+              1626.0,
+              246.0
+            ],
+            [
+              1622.0,
+              834.0
+            ],
+            [
+              292.0,
+              834.0
+            ]
+          ],
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            372.747813,
+            408.996302,
+            364.108065
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              300.703125,
+              91.37834167480469
+            ],
+            [
+              1610.7205810546875,
+              91.39014434814453
+            ],
+            [
+              1612.7225341796875,
+              977.4019165039062
+            ],
+            [
+              304.70513916015625,
+              981.3902587890625
+            ]
+          ],
+          "wb102_fit_accepted": false,
+          "inference_ms": [
+            174.513936,
+            169.675133,
+            167.34729
+          ]
+        }
+      ]
+    },
+    "fastvit_sa24": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "docaligner",
+        "model": "fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+        "version": "1.1.1",
+        "sha256": "7f9f5a8935b2eb22b3ee0245d34996063f54562df390d34714af2d76928695bc",
+        "weights_bytes": 83084930,
+        "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+        "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+        "code_license": "Apache-2.0",
+        "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+        "weight_license": "Official project release. No separate weight license listed.",
+        "task": "four-corner heatmaps for documents",
+        "runtime": "ONNX Runtime 1.22.1",
+        "provider": "CPUExecutionProvider",
+        "intra_op_threads": 1,
+        "input_color": "bgr",
+        "peak_semantics": "Uncalibrated heatmap activations.",
+        "load_ms": 307.946341
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": null,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 8,
+        "positive_failures": 0,
+        "positive_without_corners": 0,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 8,
+        "order_passes": 8,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 32,
+          "mean": 19.090220319134822,
+          "median": 14.98005301210432,
+          "p95": 48.20361075941052,
+          "max": 75.43319073337216
+        },
+        "ordered_corner_error_px": {
+          "n": 32,
+          "mean": 19.090220319134822,
+          "median": 14.98005301210432,
+          "p95": 48.20361075941052,
+          "max": 75.43319073337216
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 32,
+          "mean": 5.0801191175035605,
+          "median": 4.000223863843602,
+          "p95": 13.625740545070153,
+          "max": 19.25649585414394
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 263.9230010666667,
+          "median": 275.93289400000003,
+          "p95": 329.4334458999999,
+          "max": 357.317966
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              674.8923634671681,
+              262.2947467736828
+            ],
+            [
+              1784.749084996534,
+              281.5630526458985
+            ],
+            [
+              1815.509995450705,
+              3624.6209072593742
+            ],
+            [
+              714.5069418847523,
+              3674.6859112395805
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            4.30686046834779,
+            15.500228639927979,
+            15.332980490130579,
+            6.7935612522433
+          ],
+          "assessed_order_errors_px": [
+            4.30686046834779,
+            15.500228639927979,
+            15.332980490130579,
+            6.7935612522433
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.0496918821587458,
+            3.786284193351959,
+            3.8855505810332653,
+            1.6333726465094491
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            296.773778,
+            357.317966,
+            312.15326
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              666.7529888998042,
+              944.2795966238297
+            ],
+            [
+              3686.2125517112945,
+              1031.9218178432234
+            ],
+            [
+              3691.33919070242,
+              1981.810092697504
+            ],
+            [
+              590.8658539018696,
+              1951.3590864044802
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            9.52385295216802,
+            26.226731640908476,
+            28.66143845615183,
+            65.71487296287559
+          ],
+          "assessed_order_errors_px": [
+            9.52385295216802,
+            26.226731640908476,
+            28.66143845615183,
+            65.71487296287559
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.4355202956937534,
+            7.723471895105022,
+            8.099523550970959,
+            17.080504305132052
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            275.505172,
+            296.138673,
+            285.950685
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              866.5483338656445,
+              535.9019948365805
+            ],
+            [
+              1847.2704088831629,
+              444.54531456090297
+            ],
+            [
+              2017.3718417077566,
+              3864.371009921546
+            ],
+            [
+              680.3174669533365,
+              3839.63455566173
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            14.62712553407806,
+            33.008034706662066,
+            4.480712554784756,
+            33.47310651010224
+          ],
+          "assessed_order_errors_px": [
+            14.62712553407806,
+            33.008034706662066,
+            4.480712554784756,
+            33.47310651010224
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            5.118607306982304,
+            10.79911565047406,
+            0.7913675542401118,
+            6.182537870746239
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            316.523957,
+            307.738276,
+            276.360616
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              965.9630265322176,
+              450.87855382835
+            ],
+            [
+              2012.642575481137,
+              463.01487715718775
+            ],
+            [
+              2015.502416215053,
+              3659.388831282322
+            ],
+            [
+              968.6357216105877,
+              3673.146508523112
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            2.0405906206434654,
+            21.486269827837575,
+            8.010481509359568,
+            2.923449259836792
+          ],
+          "assessed_order_errors_px": [
+            2.0405906206434654,
+            21.486269827837575,
+            8.010481509359568,
+            2.923449259836792
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            0.5295371976848475,
+            5.565159294090526,
+            2.0768822378779483,
+            0.7460354346842077
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            269.878522,
+            339.995755,
+            278.328455
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1110.6658644995002,
+              848.355228551891
+            ],
+            [
+              1983.9444709657741,
+              837.870814602644
+            ],
+            [
+              2026.1460769880864,
+              3563.820547422371
+            ],
+            [
+              1142.0487270845358,
+              3587.0899964834753
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            1.3958119359550774,
+            13.056168167973492,
+            32.51899766805434,
+            10.530353782124308
+          ],
+          "assessed_order_errors_px": [
+            1.3958119359550774,
+            13.056168167973492,
+            32.51899766805434,
+            10.530353782124308
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            0.4258480724987977,
+            4.114897146653939,
+            9.874647403808218,
+            3.202345545402947
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            292.90083,
+            313.446021,
+            275.064377
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              446.1115729324105,
+              841.5999323840585
+            ],
+            [
+              3512.0222186389315,
+              851.394110414609
+            ],
+            [
+              3446.7255189685193,
+              1839.8742149439456
+            ],
+            [
+              391.8459062364232,
+              1789.2057282409783
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            3.1967272029342246,
+            75.43319073337216,
+            20.690014099188843,
+            7.9635810871760375
+          ],
+          "assessed_order_errors_px": [
+            3.1967272029342246,
+            75.43319073337216,
+            20.690014099188843,
+            7.9635810871760375
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            0.8876186623393448,
+            19.25649585414394,
+            5.40890830566516,
+            2.3292998952824027
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            263.452069,
+            299.615218,
+            270.93504
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              478.68686929121293,
+              1081.8790368686264
+            ],
+            [
+              3817.805844211753,
+              1333.2388285084146
+            ],
+            [
+              3648.9089031481853,
+              2349.6460463872736
+            ],
+            [
+              500.27239285376174,
+              2130.36755656537
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            14.46942276980909,
+            19.0645112128623,
+            18.283581344620146,
+            33.87621441112096
+          ],
+          "assessed_order_errors_px": [
+            14.46942276980909,
+            19.0645112128623,
+            18.283581344620146,
+            33.87621441112096
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.4733996938332354,
+            5.0078818397579425,
+            4.773948881338037,
+            8.608584241353398
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            292.074736,
+            316.473756,
+            273.523225
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1005.8824783372481,
+              340.35542703748297
+            ],
+            [
+              2057.649761231849,
+              347.3797940421661
+            ],
+            [
+              2071.031408884788,
+              3590.8349266798846
+            ],
+            [
+              1027.7182003198138,
+              3595.731964212557
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            5.645796247686792,
+            26.59776258100868,
+            13.95931008021962,
+            22.09530950215016
+          ],
+          "assessed_order_errors_px": [
+            5.645796247686792,
+            26.59776258100868,
+            13.95931008021962,
+            22.09530950215016
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.4173697543388903,
+            6.941427041513989,
+            3.665865483472522,
+            5.672112041975719
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            271.920502,
+            269.258273,
+            272.952632
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              415.1458650728544,
+              317.3207547169811
+            ],
+            [
+              1496.470882709531,
+              318.30865501192847
+            ],
+            [
+              1494.3324829931971,
+              758.340058750773
+            ],
+            [
+              415.42868280513,
+              759.3050715315946
+            ]
+          ],
+          "inference_ms": [
+            141.892164,
+            144.476284,
+            182.64156
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              674.7091057091056,
+              426.9555629555629
+            ],
+            [
+              1061.4099237241487,
+              234.3842101124479
+            ],
+            [
+              1317.0846510521935,
+              446.6102722625134
+            ],
+            [
+              879.2205656565656,
+              697.7143838383838
+            ]
+          ],
+          "inference_ms": [
+            144.133335,
+            142.976195,
+            137.2887
+          ]
+        }
+      ]
+    },
+    "fastvit_sa24-960": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "docaligner",
+        "model": "fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+        "version": "1.1.1",
+        "sha256": "7f9f5a8935b2eb22b3ee0245d34996063f54562df390d34714af2d76928695bc",
+        "weights_bytes": 83084930,
+        "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/fastvit_sa24_h_e_bifpn_256_fp32.onnx",
+        "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+        "code_license": "Apache-2.0",
+        "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+        "weight_license": "Official project release. No separate weight license listed.",
+        "task": "four-corner heatmaps for documents",
+        "runtime": "ONNX Runtime 1.22.1",
+        "provider": "CPUExecutionProvider",
+        "intra_op_threads": 1,
+        "input_color": "bgr",
+        "peak_semantics": "Uncalibrated heatmap activations.",
+        "load_ms": 431.925168
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": 960,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 8,
+        "positive_failures": 0,
+        "positive_without_corners": 0,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 8,
+        "order_passes": 8,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 32,
+          "mean": 20.577791382562076,
+          "median": 17.61674390963548,
+          "p95": 52.97005542758126,
+          "max": 74.42112230172968
+        },
+        "ordered_corner_error_px": {
+          "n": 32,
+          "mean": 20.577791382562076,
+          "median": 17.61674390963548,
+          "p95": 52.97005542758126,
+          "max": 74.42112230172968
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 32,
+          "mean": 5.4560866283301035,
+          "median": 4.687011274599632,
+          "p95": 15.184903284292574,
+          "max": 19.060795630283465
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 167.95252446666663,
+          "median": 171.03268300000002,
+          "p95": 193.22127734999998,
+          "max": 204.871841
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              673.6178217821782,
+              258.9237623762376
+            ],
+            [
+              1784.5620386643232,
+              276.20745166959574
+            ],
+            [
+              1813.0608695652172,
+              3624.4054169636493
+            ],
+            [
+              711.5712460063899,
+              3671.509194178204
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            5.768761135523088,
+            20.140751978600562,
+            16.840397908952767,
+            9.500485520965546
+          ],
+          "assessed_order_errors_px": [
+            5.768761135523088,
+            20.140751978600562,
+            16.840397908952767,
+            9.500485520965546
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.3820833705177815,
+            4.902048790549816,
+            4.27672679720788,
+            2.3149157349553158
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            171.459414,
+            168.360295,
+            166.045321
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              666.0546812907328,
+              943.4052614846606
+            ],
+            [
+              3683.84930605408,
+              1034.8284079125788
+            ],
+            [
+              3690.2807603595006,
+              1980.6360852620696
+            ],
+            [
+              587.314253447456,
+              1951.6236725313045
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            10.044108923601488,
+            23.73715079765007,
+            29.75052046976277,
+            68.75938189243789
+          ],
+          "assessed_order_errors_px": [
+            10.044108923601488,
+            23.73715079765007,
+            29.75052046976277,
+            68.75938189243789
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.5567104676532533,
+            6.99512204959682,
+            8.443202086949702,
+            17.754587604281426
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            165.925441,
+            169.277953,
+            165.809825
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              865.926224290886,
+              524.7692644309186
+            ],
+            [
+              1844.5738285759785,
+              438.0384370396911
+            ],
+            [
+              2014.7916914417092,
+              3861.3221944741745
+            ],
+            [
+              678.3635373341256,
+              3839.3226381461677
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            4.804587669165206,
+            40.05151559269859,
+            8.468740442303762,
+            33.99502151030361
+          ],
+          "assessed_order_errors_px": [
+            4.804587669165206,
+            40.05151559269859,
+            8.468740442303762,
+            33.99502151030361
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.5889941462861308,
+            13.082434295210794,
+            1.5014133355514345,
+            6.281979109972206
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            182.507893,
+            166.638549,
+            168.732027
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              964.0279086366879,
+              448.7099928622412
+            ],
+            [
+              2012.0356683345249,
+              462.39928520371694
+            ],
+            [
+              2014.4613018597995,
+              3656.8941344778254
+            ],
+            [
+              966.5801268498944,
+              3671.530091613812
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            4.584936476057714,
+            22.34983118374438,
+            10.707516167614916,
+            4.69000221143905
+          ],
+          "assessed_order_errors_px": [
+            4.584936476057714,
+            22.34983118374438,
+            10.707516167614916,
+            4.69000221143905
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.1773495384509647,
+            5.7849510831550495,
+            2.780501997824444,
+            1.2053128668128936
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            172.542012,
+            177.435727,
+            170.605952
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1111.2332112332113,
+              844.820591594785
+            ],
+            [
+              1982.7639190166306,
+              835.9815618221259
+            ],
+            [
+              2024.5568641446587,
+              3564.0866642874144
+            ],
+            [
+              1139.8069594865624,
+              3577.0171480144404
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            2.191850468443876,
+            14.378459390454637,
+            33.20185493413881,
+            20.196409567451582
+          ],
+          "assessed_order_errors_px": [
+            2.191850468443876,
+            14.378459390454637,
+            33.20185493413881,
+            20.196409567451582
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            0.6713144550208555,
+            4.520585600949259,
+            10.012121044599429,
+            6.058272277412471
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            174.431582,
+            166.612369,
+            204.871841
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              445.857108892059,
+              837.981455064194
+            ],
+            [
+              3510.0881419909247,
+              849.7821547604706
+            ],
+            [
+              3442.6515770232954,
+              1836.8952475401547
+            ],
+            [
+              394.78288405969204,
+              1788.0442742350472
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            6.29855035554055,
+            74.42112230172968,
+            25.363816924276048,
+            8.0482882440483
+          ],
+          "assessed_order_errors_px": [
+            6.29855035554055,
+            74.42112230172968,
+            25.363816924276048,
+            8.0482882440483
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.7819958299742928,
+            19.060795630283465,
+            6.7181882058784055,
+            2.3431717471217652
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            190.521736,
+            183.407623,
+            176.321128
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              480.11395247178507,
+              1080.3409632808775
+            ],
+            [
+              3817.9956853897006,
+              1331.7029846019873
+            ],
+            [
+              3653.539410348977,
+              2346.401423987164
+            ],
+            [
+              502.5249326416536,
+              2124.893935738127
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            13.39547575158496,
+            20.077621337466358,
+            13.473892050790974,
+            35.536178189247174
+          ],
+          "assessed_order_errors_px": [
+            13.39547575158496,
+            20.077621337466358,
+            13.473892050790974,
+            35.536178189247174
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.1871733587809947,
+            5.270695504313823,
+            3.56082908055079,
+            9.168322290189698
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            179.721813,
+            178.118157,
+            177.839806
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1004.3309996391193,
+              338.3164922410682
+            ],
+            [
+              2054.0477038091844,
+              344.38155927376295
+            ],
+            [
+              2067.0533667621776,
+              3588.850358166189
+            ],
+            [
+              1031.3691144708423,
+              3590.987904967603
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            7.862687434089243,
+            30.674807330267903,
+            18.3930899103182,
+            20.78151017131678
+          ],
+          "assessed_order_errors_px": [
+            7.862687434089243,
+            30.674807330267903,
+            18.3930899103182,
+            20.78151017131678
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.9632577271258256,
+            7.996953196200704,
+            4.853436948250005,
+            5.399325934935602
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            195.429993,
+            179.762355,
+            180.698001
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              414.7175769292734,
+              315.74351538585466
+            ],
+            [
+              1494.7146743478957,
+              316.8222115538486
+            ],
+            [
+              1493.9696394686907,
+              759.1878557874763
+            ],
+            [
+              413.6450676982592,
+              760.4493874919407
+            ]
+          ],
+          "inference_ms": [
+            131.745309,
+            149.199359,
+            131.684567
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              675.5416856492027,
+              426.20258162490506
+            ],
+            [
+              1060.7703053931123,
+              233.89083820662768
+            ],
+            [
+              1316.7835286458333,
+              446.037109375
+            ],
+            [
+              879.0372598162071,
+              696.5096073517126
+            ]
+          ],
+          "inference_ms": [
+            129.172857,
+            131.993694,
+            131.703135
+          ]
+        }
+      ]
+    },
+    "fastvit_t8": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "docaligner",
+        "model": "fastvit_t8_h_e_bifpn_256_fp32.onnx",
+        "version": "1.1.1",
+        "sha256": "950070fd4a46e25d46db7c35d0ed77612d9063f70d4543c7c504f0da6a943a89",
+        "weights_bytes": 13167814,
+        "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/fastvit_t8_h_e_bifpn_256_fp32.onnx",
+        "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+        "code_license": "Apache-2.0",
+        "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+        "weight_license": "Official project release. No separate weight license listed.",
+        "task": "four-corner heatmaps for documents",
+        "runtime": "ONNX Runtime 1.22.1",
+        "provider": "CPUExecutionProvider",
+        "intra_op_threads": 1,
+        "input_color": "bgr",
+        "peak_semantics": "Uncalibrated heatmap activations.",
+        "load_ms": 82.686498
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": null,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 4,
+        "positive_failures": 4,
+        "positive_without_corners": 2,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 6,
+        "order_passes": 4,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 24,
+          "mean": 30.459930938180957,
+          "median": 17.489042169633663,
+          "p95": 112.79653127737488,
+          "max": 201.4651383082958
+        },
+        "ordered_corner_error_px": {
+          "n": 24,
+          "mean": 30.459930938180957,
+          "median": 17.489042169633663,
+          "p95": 112.79653127737488,
+          "max": 201.4651383082958
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 24,
+          "mean": 8.871391147851865,
+          "median": 4.610647000418723,
+          "p95": 28.977341198597784,
+          "max": 73.82273123131519
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 166.21526453333334,
+          "median": 181.7669275,
+          "p95": 259.2833209499999,
+          "max": 285.152869
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              682.1540035667089,
+              267.28185982063815
+            ],
+            [
+              1784.8728611779748,
+              287.49089023268556
+            ],
+            [
+              1812.171279170211,
+              3628.487791207559
+            ],
+            [
+              722.0943010461411,
+              3668.1383847374327
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            7.0291892352504055,
+            11.21040467777451,
+            14.413303261934777,
+            16.349803080539832
+          ],
+          "assessed_order_errors_px": [
+            7.0291892352504055,
+            11.21040467777451,
+            14.413303261934777,
+            16.349803080539832
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.670427834364674,
+            2.7690037628648994,
+            3.696461951761759,
+            3.9691204415493875
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            180.607493,
+            182.815914,
+            181.432011
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            241.572656,
+            175.814692,
+            181.818553
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              867.9787649653433,
+              589.3414114681789
+            ],
+            [
+              1846.5330582862857,
+              676.0145353810519
+            ],
+            [
+              2022.9834065962314,
+              3875.119913369836
+            ],
+            [
+              677.4968700321241,
+              3838.0751983852138
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            67.60629651916595,
+            201.4651383082958,
+            7.719707333338901,
+            35.35570968422936
+          ],
+          "assessed_order_errors_px": [
+            67.60629651916595,
+            201.4651383082958,
+            7.719707333338901,
+            35.35570968422936
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            23.59508871157678,
+            73.82273123131519,
+            1.4324419713311258,
+            6.537406790239545
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            188.767782,
+            182.727694,
+            181.715302
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              962.0282778704884,
+              447.22737475867933
+            ],
+            [
+              2012.1616224730217,
+              468.6319691230262
+            ],
+            [
+              2012.4306762200397,
+              3662.2088206009253
+            ],
+            [
+              964.862936820566,
+              3674.904487679377
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            7.063580282232819,
+            18.101754387324387,
+            7.346616050954997,
+            3.322847067861775
+          ],
+          "assessed_order_errors_px": [
+            7.063580282232819,
+            18.101754387324387,
+            7.346616050954997,
+            3.322847067861775
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.7997470857308748,
+            4.69352910007083,
+            1.9356798600964713,
+            0.8619237953020531
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            197.441563,
+            191.286492,
+            185.209939
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            183.57768,
+            180.88017,
+            180.625924
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              429.65036499184595,
+              847.2930418575755
+            ],
+            [
+              3561.864307065476,
+              857.6616847222487
+            ],
+            [
+              3458.7916129552045,
+              1839.516670695026
+            ],
+            [
+              381.1713700397404,
+              1787.27289288238
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            14.722640712283406,
+            120.77127858764717,
+            9.35295993437395,
+            17.20612289682729
+          ],
+          "assessed_order_errors_px": [
+            14.722640712283406,
+            120.77127858764717,
+            9.35295993437395,
+            17.20612289682729
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            4.014263399650788,
+            29.927150461013273,
+            2.5384403370287436,
+            4.951949132257725
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            183.074414,
+            273.773865,
+            178.764569
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              474.69953656275914,
+              1091.2932630860041
+            ],
+            [
+              3813.751663231277,
+              1342.7177701808187
+            ],
+            [
+              3648.385692460582,
+              2336.2272949761937
+            ],
+            [
+              492.0000189789334,
+              2116.6578541152653
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            19.70021950282433,
+            17.771961442440034,
+            21.506827257919152,
+            26.055864121916123
+          ],
+          "assessed_order_errors_px": [
+            19.70021950282433,
+            17.771961442440034,
+            21.506827257919152,
+            26.055864121916123
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            4.973761160614592,
+            4.527764900766616,
+            6.021783783241747,
+            6.947159489212633
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            179.593212,
+            178.275679,
+            285.152869
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              999.3811193172492,
+              324.2778007549647
+            ],
+            [
+              2063.9530609726794,
+              340.08543578354016
+            ],
+            [
+              2070.984073084316,
+              3587.0051571594095
+            ],
+            [
+              1034.487015001221,
+              3594.724018452888
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            22.708225856140874,
+            22.825588193961956,
+            15.82155337510657,
+            25.61075074599872
+          ],
+          "assessed_order_errors_px": [
+            22.708225856140874,
+            22.825588193961956,
+            15.82155337510657,
+            25.61075074599872
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            5.55214397925158,
+            5.818196342759998,
+            4.194118304799601,
+            6.663093721643822
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            185.432446,
+            186.076571,
+            223.598842
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              420.364430269203,
+              322.66484413562665
+            ],
+            [
+              1476.0768969422425,
+              324.4116270290676
+            ],
+            [
+              1476.104497650481,
+              753.8250540762288
+            ],
+            [
+              428.760156146619,
+              753.6828106391425
+            ]
+          ],
+          "inference_ms": [
+            53.086527,
+            50.102583,
+            47.491513
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              735.4832028499234,
+              397.7147177001781
+            ],
+            [
+              1058.815871145158,
+              230.31875859359653
+            ],
+            [
+              1310.0708679331135,
+              442.79975732756986
+            ],
+            [
+              874.07267694741,
+              697.631633056544
+            ]
+          ],
+          "inference_ms": [
+            48.489743,
+            47.468018,
+            49.78322
+          ]
+        }
+      ]
+    },
+    "fastvit_t8-960": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "docaligner",
+        "model": "fastvit_t8_h_e_bifpn_256_fp32.onnx",
+        "version": "1.1.1",
+        "sha256": "950070fd4a46e25d46db7c35d0ed77612d9063f70d4543c7c504f0da6a943a89",
+        "weights_bytes": 13167814,
+        "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/fastvit_t8_h_e_bifpn_256_fp32.onnx",
+        "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+        "code_license": "Apache-2.0",
+        "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+        "weight_license": "Official project release. No separate weight license listed.",
+        "task": "four-corner heatmaps for documents",
+        "runtime": "ONNX Runtime 1.22.1",
+        "provider": "CPUExecutionProvider",
+        "intra_op_threads": 1,
+        "input_color": "bgr",
+        "peak_semantics": "Uncalibrated heatmap activations.",
+        "load_ms": 93.515457
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": 960,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 3,
+        "positive_failures": 5,
+        "positive_without_corners": 3,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 5,
+        "order_passes": 3,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 20,
+          "mean": 34.501129196966545,
+          "median": 17.92251679005056,
+          "p95": 134.68949951585023,
+          "max": 203.42423892507313
+        },
+        "ordered_corner_error_px": {
+          "n": 20,
+          "mean": 34.501129196966545,
+          "median": 17.92251679005056,
+          "p95": 134.68949951585023,
+          "max": 203.42423892507313
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 20,
+          "mean": 10.084536630405971,
+          "median": 4.332419276965491,
+          "p95": 34.5125565320199,
+          "max": 74.9539358603021
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 68.39788956666666,
+          "median": 73.8609935,
+          "p95": 78.24467899999999,
+          "max": 100.559187
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              682.3573248407644,
+              264.8407643312102
+            ],
+            [
+              1783.3940883190883,
+              280.01146723646724
+            ],
+            [
+              1810.377761836442,
+              3628.9596843615495
+            ],
+            [
+              721.8433438707411,
+              3672.9017211099404
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            5.101284224027324,
+            17.55461225603486,
+            15.525727135963454,
+            12.746510877053485
+          ],
+          "assessed_order_errors_px": [
+            5.101284224027324,
+            17.55461225603486,
+            15.525727135963454,
+            12.746510877053485
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.2164585102204568,
+            4.292798535034038,
+            3.996422852109922,
+            3.0942571714144296
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            74.215322,
+            75.127111,
+            75.527898
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            79.0616,
+            75.263638,
+            73.30883
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              868.1753623188407,
+              586.9497584541064
+            ],
+            [
+              1840.4786923525978,
+              677.4854057209574
+            ],
+            [
+              2019.4633754432627,
+              3885.809138593381
+            ],
+            [
+              677.3297174075384,
+              3836.387218488386
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            65.24267179550297,
+            203.42423892507313,
+            17.817221538532284,
+            37.049262809070036
+          ],
+          "assessed_order_errors_px": [
+            65.24267179550297,
+            203.42423892507313,
+            17.817221538532284,
+            37.049262809070036
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            22.81865066414656,
+            74.9539358603021,
+            3.3555939086803206,
+            6.81160906662755
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            74.640455,
+            73.816589,
+            74.073788
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              961.6596503745985,
+              445.1480556546557
+            ],
+            [
+              2009.1210620739146,
+              466.72091855041253
+            ],
+            [
+              2011.135212272565,
+              3655.667213699607
+            ],
+            [
+              963.5052975326561,
+              3675.454644412191
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            8.628168171363818,
+            21.689450491204678,
+            13.249805880582324,
+            4.527666395297027
+          ],
+          "assessed_order_errors_px": [
+            8.628168171363818,
+            21.689450491204678,
+            13.249805880582324,
+            4.527666395297027
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.1930613634725313,
+            5.649331872568266,
+            3.474425941046732,
+            1.1715530586165068
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            73.626307,
+            74.011896,
+            73.821549
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            100.559187,
+            72.948969,
+            73.364957
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              430.0821153543926,
+              847.3229019330505
+            ],
+            [
+              3572.500771069473,
+              858.1661076412984
+            ],
+            [
+              3459.4240653736492,
+              1836.825382484038
+            ],
+            [
+              380.6455536096517,
+              1785.2558863592137
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            14.309059726799124,
+            131.07188165220686,
+            10.434075041089569,
+            18.74019748775903
+          ],
+          "assessed_order_errors_px": [
+            14.309059726799124,
+            131.07188165220686,
+            10.434075041089569,
+            18.74019748775903
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            3.884352491313218,
+            32.38406288316291,
+            2.943301804464766,
+            5.428667242581717
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            73.763992,
+            73.900438,
+            73.467373
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            75.67274,
+            74.092057,
+            72.893885
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              998.2220630372493,
+              329.7345988538682
+            ],
+            [
+              2063.1601570867547,
+              343.83670117815063
+            ],
+            [
+              2066.0829992576096,
+              3594.0042316258355
+            ],
+            [
+              1040.7781518624643,
+              3601.459383954155
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            18.029408693606936,
+            22.036603700657906,
+            18.02781204156884,
+            34.816925095937314
+          ],
+          "assessed_order_errors_px": [
+            18.029408693606936,
+            22.036603700657906,
+            18.02781204156884,
+            34.816925095937314
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            4.372040018896945,
+            5.6534833922851115,
+            4.851633756700344,
+            9.145092214474982
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            74.984397,
+            76.648005,
+            77.24622
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              419.2886405959032,
+              320.89851024208565
+            ],
+            [
+              1475.6002488722972,
+              321.32835588738527
+            ],
+            [
+              1474.9743353311817,
+              753.8807438143538
+            ],
+            [
+              428.9397192402973,
+              754.477566749243
+            ]
+          ],
+          "inference_ms": [
+            40.227697,
+            39.436902,
+            40.144411
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              735.7025691699605,
+              397.00592885375494
+            ],
+            [
+              1059.0048355899419,
+              229.94100580270793
+            ],
+            [
+              1309.4860003128422,
+              442.8662599718442
+            ],
+            [
+              875.888402270884,
+              695.7372262773723
+            ]
+          ],
+          "inference_ms": [
+            38.455496,
+            38.681609,
+            38.953369
+          ]
+        }
+      ]
+    },
+    "lcnet100": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "docaligner",
+        "model": "lcnet100_h_e_bifpn_256_fp32.onnx",
+        "version": "1.1.1",
+        "sha256": "f4117b786e3a18470f3865c93f3c2bd69d9b998edd60f385574a5c665e79594e",
+        "weights_bytes": 4767987,
+        "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/lcnet100_h_e_bifpn_256_fp32.onnx",
+        "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+        "code_license": "Apache-2.0",
+        "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+        "weight_license": "Official project release. No separate weight license listed.",
+        "task": "four-corner heatmaps for documents",
+        "runtime": "ONNX Runtime 1.22.1",
+        "provider": "CPUExecutionProvider",
+        "intra_op_threads": 1,
+        "input_color": "bgr",
+        "peak_semantics": "Uncalibrated heatmap activations.",
+        "load_ms": 51.292884
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": null,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 5,
+        "positive_failures": 3,
+        "positive_without_corners": 1,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 7,
+        "order_passes": 5,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 28,
+          "mean": 29.41348548108869,
+          "median": 15.91927275690665,
+          "p95": 98.79488649295149,
+          "max": 173.95942978976157
+        },
+        "ordered_corner_error_px": {
+          "n": 28,
+          "mean": 29.41348548108869,
+          "median": 15.91927275690665,
+          "p95": 98.79488649295149,
+          "max": 173.95942978976157
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 28,
+          "mean": 8.618791609217308,
+          "median": 4.526174395581928,
+          "p95": 27.559243293705393,
+          "max": 65.46244983061739
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 165.4651244,
+          "median": 187.44048800000002,
+          "p95": 208.74581834999998,
+          "max": 233.162751
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              684.0858854947771,
+              256.049333017602
+            ],
+            [
+              1779.3761106879917,
+              282.22424874066354
+            ],
+            [
+              1818.6713502044195,
+              3624.554792216529
+            ],
+            [
+              719.9733682475027,
+              3674.0922509940838
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            7.097558371481706,
+            18.775687905683608,
+            14.124829959807748,
+            10.54948328303431
+          ],
+          "assessed_order_errors_px": [
+            7.097558371481706,
+            18.775687905683608,
+            14.124829959807748,
+            10.54948328303431
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.7571555866003088,
+            4.663945233056431,
+            3.51318696007149,
+            2.5127648156559355
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            200.792222,
+            188.45602,
+            198.576164
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            200.896589,
+            191.326923,
+            183.492566
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              879.7567975624419,
+              586.1940072142975
+            ],
+            [
+              1833.1106438308852,
+              646.8686874843393
+            ],
+            [
+              2025.2294125518533,
+              3863.8974307507024
+            ],
+            [
+              674.5718665368851,
+              3845.471610284526
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            66.60461261731666,
+            173.95942978976157,
+            6.646640511022367,
+            28.78967999125896
+          ],
+          "assessed_order_errors_px": [
+            66.60461261731666,
+            173.95942978976157,
+            6.646640511022367,
+            28.78967999125896
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            23.571424171413742,
+            65.46244983061739,
+            1.3638864625716307,
+            5.261765192188129
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            181.169135,
+            179.639591,
+            233.162751
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              970.1148477702251,
+              444.8298025537874
+            ],
+            [
+              2005.5658996565724,
+              466.1117736375307
+            ],
+            [
+              2011.5786829469935,
+              3654.1219307450156
+            ],
+            [
+              972.6070770341156,
+              3668.7701478302333
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            6.5225698629048665,
+            25.01053850484579,
+            14.390204322086882,
+            8.57297621569985
+          ],
+          "assessed_order_errors_px": [
+            6.5225698629048665,
+            25.01053850484579,
+            14.390204322086882,
+            8.57297621569985
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.6873812290258978,
+            6.577863475495549,
+            3.7511089449479744,
+            2.185528798782377
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            194.996706,
+            193.280761,
+            202.022928
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1114.7599649034846,
+              846.825513216902
+            ],
+            [
+              1982.082780474649,
+              836.6854908306365
+            ],
+            [
+              2019.8417526991882,
+              3568.009542385793
+            ],
+            [
+              1146.9940860322472,
+              3581.608785705247
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            3.7640113858637525,
+            14.975024965717118,
+            33.34939360704831,
+            13.540617088376
+          ],
+          "assessed_order_errors_px": [
+            3.7640113858637525,
+            14.975024965717118,
+            33.34939360704831,
+            13.540617088376
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.1875158936450252,
+            4.733596556069929,
+            10.254787405648207,
+            4.059086334300138
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            183.331736,
+            183.57902,
+            181.785956
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              452.14747893628225,
+              844.7678120063191
+            ],
+            [
+              3559.4032964786356,
+              871.0455683193263
+            ],
+            [
+              3450.2161010989894,
+              1845.6367843342105
+            ],
+            [
+              393.71009917659745,
+              1795.3341948806985
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            8.183577964082142,
+            116.1281108875242,
+            16.863520548096183,
+            2.3847310619664652
+          ],
+          "assessed_order_errors_px": [
+            8.183577964082142,
+            116.1281108875242,
+            16.863520548096183,
+            2.3847310619664652
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            2.237661779671425,
+            29.70653051340091,
+            4.388403558107425,
+            0.6695540148118155
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            187.631722,
+            187.249254,
+            214.246365
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              513.8886662964138,
+              1085.5601528615255
+            ],
+            [
+              3794.824584143443,
+              1337.2647335521501
+            ],
+            [
+              3624.444973923714,
+              2320.295626683028
+            ],
+            [
+              518.072849005696,
+              2119.9765830585256
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            20.946848369009135,
+            37.462462882269946,
+            50.23996216763709,
+            51.23108225914773
+          ],
+          "assessed_order_errors_px": [
+            20.946848369009135,
+            37.462462882269946,
+            50.23996216763709,
+            51.23108225914773
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            5.041394882360772,
+            9.938360003393102,
+            14.649097037096155,
+            13.215175249098
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            185.358203,
+            189.262521,
+            186.396652
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1006.6244361301278,
+              338.9130711670116
+            ],
+            [
+              2057.2236780166327,
+              344.4398765625817
+            ],
+            [
+              2079.331258905789,
+              3599.3404380819825
+            ],
+            [
+              1036.5485603028956,
+              3602.8736677580605
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            7.114385480450959,
+            27.568217905245987,
+            5.740702917268246,
+            33.04073264587567
+          ],
+          "assessed_order_errors_px": [
+            7.114385480450959,
+            27.568217905245987,
+            5.740702917268246,
+            33.04073264587567
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.785872408191596,
+            7.175771934146293,
+            1.4989264649233767,
+            8.475970322793563
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            192.392216,
+            192.839242,
+            194.970537
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              422.24872033503954,
+              319.66003567550797
+            ],
+            [
+              1497.478668769461,
+              320.59513122245136
+            ],
+            [
+              1485.1906026228978,
+              760.4249738514764
+            ],
+            [
+              420.91088839684573,
+              759.2921959367595
+            ]
+          ],
+          "inference_ms": [
+            57.797037,
+            57.585668,
+            56.823133
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              724.5476744186046,
+              402.65682170542635
+            ],
+            [
+              1060.3818643194163,
+              233.64442329804527
+            ],
+            [
+              1315.650350188563,
+              443.7741861002078
+            ],
+            [
+              883.271063996859,
+              695.4542599136238
+            ]
+          ],
+          "inference_ms": [
+            54.707714,
+            54.663175,
+            55.521225
+          ]
+        }
+      ]
+    },
+    "lcnet100-960": {
+      "machine": {
+        "python": "3.12.14",
+        "opencv": "4.12.0",
+        "numpy": "2.2.6",
+        "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+        "cpu": "AMD EPYC 9V74 80-Core Processor",
+        "opencv_threads": 1
+      },
+      "backend": {
+        "name": "docaligner",
+        "model": "lcnet100_h_e_bifpn_256_fp32.onnx",
+        "version": "1.1.1",
+        "sha256": "f4117b786e3a18470f3865c93f3c2bd69d9b998edd60f385574a5c665e79594e",
+        "weights_bytes": 4767987,
+        "source_url": "https://github.com/DocsaidLab/DocAligner/releases/download/1.1.1/lcnet100_h_e_bifpn_256_fp32.onnx",
+        "release_url": "https://github.com/DocsaidLab/DocAligner/releases/tag/1.1.1",
+        "code_license": "Apache-2.0",
+        "license_url": "https://github.com/DocsaidLab/DocAligner/blob/1.1.1/LICENSE",
+        "weight_license": "Official project release. No separate weight license listed.",
+        "task": "four-corner heatmaps for documents",
+        "runtime": "ONNX Runtime 1.22.1",
+        "provider": "CPUExecutionProvider",
+        "intra_op_threads": 1,
+        "input_color": "bgr",
+        "peak_semantics": "Uncalibrated heatmap activations.",
+        "load_ms": 62.858833
+      },
+      "settings": {
+        "repeats": 3,
+        "warmup_frames": 2,
+        "board_mm": [
+          165.0,
+          55.0
+        ],
+        "max_input_edge_px": 960,
+        "long_edge_px": 825,
+        "corner_threshold_fraction_of_image_diagonal": 0.02,
+        "timed_scope": "backend return, including its pre/post-processing; excludes image decode and visualization"
+      },
+      "summary": {
+        "images": 10,
+        "positive_images": 8,
+        "negative_images": 2,
+        "positive_corner_passes": 6,
+        "positive_failures": 2,
+        "positive_without_corners": 1,
+        "negative_false_positives": 2,
+        "inference_errors": 0,
+        "order_comparable_images": 7,
+        "order_passes": 6,
+        "physical_order_comparable_images": 0,
+        "physical_order_passes": 0,
+        "aligned_corner_error_px": {
+          "n": 28,
+          "mean": 28.77948851153781,
+          "median": 17.445795986130307,
+          "p95": 59.902541924654365,
+          "max": 180.39984322255523
+        },
+        "ordered_corner_error_px": {
+          "n": 28,
+          "mean": 28.77948851153781,
+          "median": 17.445795986130307,
+          "p95": 59.902541924654365,
+          "max": 180.39984322255523
+        },
+        "rectified_reference_corner_error_px": {
+          "n": 28,
+          "mean": 8.542949669414472,
+          "median": 4.855905555021828,
+          "p95": 19.890857131809092,
+          "max": 69.11792029856382
+        },
+        "independent_hole_error_mm": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "inference_ms": {
+          "n": 30,
+          "mean": 75.80549179999998,
+          "median": 82.0327225,
+          "p95": 87.69442039999998,
+          "max": 108.384728
+        }
+      },
+      "images": [
+        {
+          "id": "cs470_01",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              682.0841309823678,
+              255.66549118387906
+            ],
+            [
+              1777.946841913107,
+              277.5092369477912
+            ],
+            [
+              1813.6888337468981,
+              3623.8977667493796
+            ],
+            [
+              716.4060798868858,
+              3671.3324849770233
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            6.161886742360096,
+            23.014107643071362,
+            16.898840186468647,
+            10.624235816711655
+          ],
+          "assessed_order_errors_px": [
+            6.161886742360096,
+            23.014107643071362,
+            16.898840186468647,
+            10.624235816711655
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            1.5141444224127087,
+            5.689105508595587,
+            4.260034731206921,
+            2.5324543169918847
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            89.799047,
+            83.334704,
+            83.52492
+          ]
+        },
+        {
+          "id": "cs470_02",
+          "truth": "board",
+          "outcome": "no_corners",
+          "corner_order": "image",
+          "corners_px": null,
+          "inference_ms": [
+            83.218468,
+            82.244373,
+            82.843539
+          ]
+        },
+        {
+          "id": "cs470_03",
+          "truth": "board",
+          "outcome": "corner_error",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              881.1984451043471,
+              583.4596428276828
+            ],
+            [
+              1826.1431324456903,
+              652.1942887175894
+            ],
+            [
+              2024.9661901081918,
+              3859.5150695517777
+            ],
+            [
+              672.9225894337835,
+              3844.844724788755
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            64.38841503664287,
+            180.39984322255523,
+            9.831433715479697,
+            29.904409807602818
+          ],
+          "assessed_order_errors_px": [
+            64.38841503664287,
+            180.39984322255523,
+            9.831433715479697,
+            29.904409807602818
+          ],
+          "order_correct_within_threshold": false,
+          "reference_corner_projection_errors_rectified_px": [
+            22.836909364588326,
+            69.11792029856382,
+            1.916299067503194,
+            5.445593633454681
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            82.640463,
+            85.122099,
+            83.726336
+          ]
+        },
+        {
+          "id": "cs470_04",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              964.8820180180179,
+              441.3173333333333
+            ],
+            [
+              2006.929062276306,
+              465.17680744452394
+            ],
+            [
+              2011.131606580329,
+              3650.421351067553
+            ],
+            [
+              965.2692805755395,
+              3668.6365467625897
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            10.172307772464592,
+            24.370539459235836,
+            17.945094833761743,
+            7.853487897402962
+          ],
+          "assessed_order_errors_px": [
+            10.172307772464592,
+            24.370539459235836,
+            17.945094833761743,
+            7.853487897402962
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            2.592570914042294,
+            6.371876154615362,
+            4.67213707231139,
+            2.0130466343194984
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            82.406309,
+            83.606234,
+            83.029612
+          ]
+        },
+        {
+          "id": "cs470_06",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1113.2771034542764,
+              845.3172583311581
+            ],
+            [
+              1981.1933890733226,
+              835.7765687118324
+            ],
+            [
+              2013.5396825396824,
+              3565.947916666667
+            ],
+            [
+              1143.2088191689706,
+              3578.768982650158
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            2.8313988884532297,
+            15.962224020497917,
+            39.43903927739101,
+            17.23321501138312
+          ],
+          "assessed_order_errors_px": [
+            2.8313988884532297,
+            15.962224020497917,
+            39.43903927739101,
+            17.23321501138312
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            0.880268348256224,
+            5.039674037732267,
+            12.21665501707559,
+            5.211747323188182
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            83.459672,
+            82.981949,
+            108.384728
+          ]
+        },
+        {
+          "id": "cs470_07",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              445.583038869258,
+              842.9196113074206
+            ],
+            [
+              3492.113963438351,
+              865.4344396905658
+            ],
+            [
+              3454.087871534011,
+              1844.5995411928984
+            ],
+            [
+              397.23122474292796,
+              1796.0138838874884
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            1.9165729280763386,
+            51.57163471667577,
+            12.926040041876245,
+            1.2313030211649045
+          ],
+          "assessed_order_errors_px": [
+            1.9165729280763386,
+            51.57163471667577,
+            12.926040041876245,
+            1.2313030211649045
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            0.5285434152462437,
+            13.564868420300105,
+            3.387051761882534,
+            0.3408649452615
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            81.011016,
+            80.548716,
+            81.821072
+          ]
+        },
+        {
+          "id": "cs470_08",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              510.2438006676204,
+              1082.8832856461613
+            ],
+            [
+              3791.0104011887074,
+              1339.484274393264
+            ],
+            [
+              3625.6198429864617,
+              2319.9145838340146
+            ],
+            [
+              512.5100353243417,
+              2116.668673731535
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            17.27992223398865,
+            40.68973020903283,
+            49.4564168066158,
+            46.09676409551455
+          ],
+          "assessed_order_errors_px": [
+            17.27992223398865,
+            40.68973020903283,
+            49.4564168066158,
+            46.09676409551455
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            4.200034003517373,
+            10.734648331687309,
+            14.4196172709334,
+            11.93627192265374
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            80.477147,
+            80.433161,
+            80.063853
+          ]
+        },
+        {
+          "id": "cs470_09",
+          "truth": "board",
+          "outcome": "corner_pass",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              1007.7522123893806,
+              330.04690265486727
+            ],
+            [
+              2052.432892804699,
+              346.5971365638767
+            ],
+            [
+              2069.7289002557545,
+              3606.3202046035804
+            ],
+            [
+              1036.1212260536397,
+              3613.972873563219
+            ]
+          ],
+          "aligned_corner_errors_px": [
+            16.04903620660069,
+            31.872675807292715,
+            17.61166973827196,
+            42.09343318646552
+          ],
+          "assessed_order_errors_px": [
+            16.04903620660069,
+            31.872675807292715,
+            17.61166973827196,
+            42.09343318646552
+          ],
+          "order_correct_within_threshold": true,
+          "reference_corner_projection_errors_rectified_px": [
+            3.9989800366208956,
+            8.394650979674402,
+            4.630842194692605,
+            10.755780616277168
+          ],
+          "landmark_errors_mm": [],
+          "inference_ms": [
+            80.406661,
+            79.749518,
+            80.713706
+          ]
+        },
+        {
+          "id": "negative_solder_09",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              421.9085841694537,
+              317.9136805223761
+            ],
+            [
+              1498.8290946083418,
+              318.82570362834855
+            ],
+            [
+              1484.0825958702064,
+              760.2254998361192
+            ],
+            [
+              420.66441550088433,
+              758.8194243447499
+            ]
+          ],
+          "inference_ms": [
+            45.807002,
+            45.425554,
+            44.275174
+          ]
+        },
+        {
+          "id": "negative_solder_10",
+          "truth": "no_board",
+          "outcome": "false_positive",
+          "corner_order": "image",
+          "corners_px": [
+            [
+              724.4897828863345,
+              401.5300127713921
+            ],
+            [
+              1060.2093744896292,
+              233.50285807610646
+            ],
+            [
+              1314.9386464263123,
+              443.4547754585705
+            ],
+            [
+              883.8837803320562,
+              694.5185185185185
+            ]
+          ],
+          "inference_ms": [
+            44.394675,
+            44.367593,
+            44.347453
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -47,7 +47,7 @@ namespace MechaVision.UI
 
         internal Texture Image => texture;
 
-        internal void Show(ProjectData project, int step)
+        internal void Show(ProjectData project)
         {
             stage.SetActive(true);
             if (project == null)
@@ -57,14 +57,14 @@ namespace MechaVision.UI
 
             SetLayer(board);
             FrameBoard();
-            UpdateStep(step);
         }
 
-        internal void UpdateStep(int step)
+        internal void ShowStep(int step)
         {
-            assembly.ShowStep(step);
-            SetLayer(board);
+            assembly.ShowStep(step, fadeCompleted: true);
         }
+
+        internal void ShowAll() => assembly.ShowAll();
 
         internal void SetAssemblyVisible(bool visible) => assembly.SetAssemblyVisible(visible);
 

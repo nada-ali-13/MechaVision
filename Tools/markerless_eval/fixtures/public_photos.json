@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "description": "Public foreign-board smoke test with manual corners. Session IDs group visible near-duplicates or photo-date hints only. No measurements, calibration, S22 capture, or proof of identity of specific user board.",
+  "images": [
+    {
+      "id": "cs470_01",
+      "path": "cs470_01.jpeg",
+      "corners_px": [
+        [
+          679,
+          261
+        ],
+        [
+          1794,
+          294
+        ],
+        [
+          1823,
+          3638
+        ],
+        [
+          712,
+          3681
+        ]
+      ],
+      "session_id": "cs470_portrait_undated",
+      "board_id": "cs470_unverified_830_style",
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 3024,
+      "height_px": 4032,
+      "notes": "clearly visible populated board; near-overhead",
+      "source": {
+        "url": "https://raw.githubusercontent.com/sparaj333/breadboard-object-detection-cs470/b3310b3175abf787d10db3f450b63ef4ffe5fc7c/CS%20470%20docs/stage2/breadboard-corners-92/images/04b03120-7d99da7b-5F0545A5-BA65-497F-AA9B-783BC512BAC1.jpeg",
+        "sha256": "f7573c6383d26fc2e1a2ca1b662b714fab4badd0b92ac8fb173aceec4b606cc9",
+        "repository": "sparaj333/breadboard-object-detection-cs470",
+        "revision": "b3310b3175abf787d10db3f450b63ef4ffe5fc7c",
+        "photo_license": "No media redistribution license found at pinned source",
+        "license_url": null
+      }
+    },
+    {
+      "id": "cs470_02",
+      "path": "cs470_02.jpg",
+      "corners_px": [
+        [
+          676,
+          942
+        ],
+        [
+          3689,
+          1058
+        ],
+        [
+          3720,
+          1982
+        ],
+        [
+          649,
+          1982
+        ]
+      ],
+      "session_id": "cs470_2026_04_12",
+      "board_id": "cs470_unverified_830_style",
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 4000,
+      "height_px": 3000,
+      "notes": "dense colorful jumpers; paper background; mild perspective",
+      "source": {
+        "url": "https://raw.githubusercontent.com/sparaj333/breadboard-object-detection-cs470/b3310b3175abf787d10db3f450b63ef4ffe5fc7c/CS%20470%20docs/stage2/breadboard-corners-92/images/13c92bd6-20260412_171352.jpg",
+        "sha256": "b6c6e673502fd7d33a8457a12655a45c91a4c95776f49ff9b7505c5b75e5f31f",
+        "repository": "sparaj333/breadboard-object-detection-cs470",
+        "revision": "b3310b3175abf787d10db3f450b63ef4ffe5fc7c",
+        "photo_license": "No media redistribution license found at pinned source",
+        "license_url": null
+      }
+    },
+    {
+      "id": "cs470_03",
+      "path": "cs470_03.jpg",
+      "corners_px": [
+        [
+          862,
+          522
+        ],
+        [
+          1860,
+          475
+        ],
+        [
+          2020,
+          3868
+        ],
+        [
+          683,
+          3873
+        ]
+      ],
+      "session_id": "cs470_2026_04_14",
+      "board_id": "cs470_unverified_830_style",
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 3000,
+      "height_px": 4000,
+      "notes": "strong perspective; side hand occlusion; all four face corners visible, upper edge shaded",
+      "source": {
+        "url": "https://raw.githubusercontent.com/sparaj333/breadboard-object-detection-cs470/b3310b3175abf787d10db3f450b63ef4ffe5fc7c/CS%20470%20docs/stage2/breadboard-corners-92/images/17be25fa-20260414_171456.jpg",
+        "sha256": "044badb9a4993f1f5ec797637861f581e03f47135b33012e2f596a9c2c9be799",
+        "repository": "sparaj333/breadboard-object-detection-cs470",
+        "revision": "b3310b3175abf787d10db3f450b63ef4ffe5fc7c",
+        "photo_license": "No media redistribution license found at pinned source",
+        "license_url": null
+      }
+    },
+    {
+      "id": "cs470_04",
+      "path": "cs470_04.jpeg",
+      "corners_px": [
+        [
+          968,
+          451
+        ],
+        [
+          2027,
+          479
+        ],
+        [
+          2018,
+          3667
+        ],
+        [
+          968,
+          3676
+        ]
+      ],
+      "session_id": "cs470_portrait_undated",
+      "board_id": "cs470_unverified_830_style",
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 3024,
+      "height_px": 4032,
+      "notes": "near-overhead population similar to cs470_01; patterned countertop",
+      "source": {
+        "url": "https://raw.githubusercontent.com/sparaj333/breadboard-object-detection-cs470/b3310b3175abf787d10db3f450b63ef4ffe5fc7c/CS%20470%20docs/stage2/breadboard-corners-92/images/23d6bc12-52d5a627-62927643-6BD3-459C-AB54-B0AD20F82EE9.jpeg",
+        "sha256": "e1ef799b38b9f8c3830d8260873149239232880eaa5ee79563f89065fb4412e8",
+        "repository": "sparaj333/breadboard-object-detection-cs470",
+        "revision": "b3310b3175abf787d10db3f450b63ef4ffe5fc7c",
+        "photo_license": "No media redistribution license found at pinned source",
+        "license_url": null
+      }
+    },
+    {
+      "id": "cs470_06",
+      "path": "cs470_06.jpg",
+      "corners_px": [
+        [
+          1111,
+          847
+        ],
+        [
+          1997,
+          838
+        ],
+        [
+          2044,
+          3591
+        ],
+        [
+          1149,
+          3595
+        ]
+      ],
+      "session_id": "cs470_2026_04_12",
+      "board_id": "cs470_unverified_830_style",
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 3000,
+      "height_px": 4000,
+      "notes": "desk clutter, loose PCB and brightly colored packaging; dense jumpers",
+      "source": {
+        "url": "https://raw.githubusercontent.com/sparaj333/breadboard-object-detection-cs470/b3310b3175abf787d10db3f450b63ef4ffe5fc7c/CS%20470%20docs/stage2/breadboard-corner-orientation/raw_train_images/3d5d37a3-20260412_171844.jpg",
+        "sha256": "c013f4522856a29c8b578c60f6bf81b09fdf3762ce2849c6aa3961d0d454a009",
+        "repository": "sparaj333/breadboard-object-detection-cs470",
+        "revision": "b3310b3175abf787d10db3f450b63ef4ffe5fc7c",
+        "photo_license": "No media redistribution license found at pinned source",
+        "license_url": null
+      }
+    },
+    {
+      "id": "cs470_07",
+      "path": "cs470_07.jpg",
+      "corners_px": [
+        [
+          444,
+          844
+        ],
+        [
+          3444,
+          884
+        ],
+        [
+          3467,
+          1844
+        ],
+        [
+          396,
+          1796
+        ]
+      ],
+      "session_id": "cs470_2026_04_14",
+      "board_id": "cs470_unverified_830_style",
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 4000,
+      "height_px": 3000,
+      "notes": "glare and cast shadow on a notebook; pitch-scale features partly saturated",
+      "source": {
+        "url": "https://raw.githubusercontent.com/sparaj333/breadboard-object-detection-cs470/b3310b3175abf787d10db3f450b63ef4ffe5fc7c/CS%20470%20docs/stage2/breadboard-corner-orientation/raw_train_images/431cc54d-20260414_170442.jpg",
+        "sha256": "41f625ea7c389e2c95f683a722c794f6fa0311cfad2cf80699e25b1bdf97931a",
+        "repository": "sparaj333/breadboard-object-detection-cs470",
+        "revision": "b3310b3175abf787d10db3f450b63ef4ffe5fc7c",
+        "photo_license": "No media redistribution license found at pinned source",
+        "license_url": null
+      }
+    },
+    {
+      "id": "cs470_08",
+      "path": "cs470_08.jpg",
+      "corners_px": [
+        [
+          493,
+          1084
+        ],
+        [
+          3831,
+          1347
+        ],
+        [
+          3667,
+          2347
+        ],
+        [
+          467,
+          2124
+        ]
+      ],
+      "session_id": "cs470_2026_04_14",
+      "board_id": "cs470_unverified_830_style",
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 4000,
+      "height_px": 3000,
+      "notes": "oblique view with loose jumpers and shadow",
+      "source": {
+        "url": "https://raw.githubusercontent.com/sparaj333/breadboard-object-detection-cs470/b3310b3175abf787d10db3f450b63ef4ffe5fc7c/CS%20470%20docs/stage2/breadboard-corner-orientation/raw_train_images/629d40c7-20260414_171107.jpg",
+        "sha256": "8fb18708c6751b262e487f3f31b9ae92b3c28f8837c064388814a43ca229d6c2",
+        "repository": "sparaj333/breadboard-object-detection-cs470",
+        "revision": "b3310b3175abf787d10db3f450b63ef4ffe5fc7c",
+        "photo_license": "No media redistribution license found at pinned source",
+        "license_url": null
+      }
+    },
+    {
+      "id": "cs470_09",
+      "path": "cs470_09.jpeg",
+      "corners_px": [
+        [
+          1006,
+          346
+        ],
+        [
+          2084,
+          351
+        ],
+        [
+          2084,
+          3596
+        ],
+        [
+          1016,
+          3577
+        ]
+      ],
+      "session_id": "cs470_portrait_undated",
+      "board_id": "cs470_unverified_830_style",
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 3024,
+      "height_px": 4032,
+      "notes": "stacked paper clutter; similarly populated board to cs470_01 and cs470_04",
+      "source": {
+        "url": "https://raw.githubusercontent.com/sparaj333/breadboard-object-detection-cs470/b3310b3175abf787d10db3f450b63ef4ffe5fc7c/CS%20470%20docs/stage2/breadboard-corner-orientation/raw_train_images/a09798a2-3f4763dc-69B4A4F4-EBBE-4D1C-A0ED-04FA2F39364D.jpeg",
+        "sha256": "336e977da1bca032107690e45bdc6543084aa8fd0906472f81637f2b127b3ecb",
+        "repository": "sparaj333/breadboard-object-detection-cs470",
+        "revision": "b3310b3175abf787d10db3f450b63ef4ffe5fc7c",
+        "photo_license": "No media redistribution license found at pinned source",
+        "license_url": null
+      }
+    },
+    {
+      "id": "negative_solder_09",
+      "path": "negative_solder_9.png",
+      "corners_px": null,
+      "session_id": "arduino_soldering_guide",
+      "board_id": null,
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 1920,
+      "height_px": 1080,
+      "notes": "Photo-style close-up of a perforated prototyping shield. No solderless breadboard.",
+      "source": {
+        "url": "https://raw.githubusercontent.com/arduino/docs-content/65d578fc7de843c45c21fc77b31a7a2009c46a5b/content/learn/04.electronics/02.soldering-basics/assets/soldering-guide_img09.png",
+        "sha256": "587f01bab323136b55bed5e9f0ff339fae99728c1ef31d0b44ee976bf2c93943",
+        "repository": "arduino/docs-content",
+        "revision": "65d578fc7de843c45c21fc77b31a7a2009c46a5b",
+        "photo_license": "Arduino Documentation is CC BY-SA 4.0 at repository level; underlying product-photo scope unconfirmed",
+        "license_url": "https://github.com/arduino/docs-content/blob/65d578fc7de843c45c21fc77b31a7a2009c46a5b/LICENSE.md"
+      }
+    },
+    {
+      "id": "negative_solder_10",
+      "path": "negative_solder_10.png",
+      "corners_px": null,
+      "session_id": "arduino_soldering_guide",
+      "board_id": null,
+      "corner_order": "image",
+      "landmarks": [],
+      "width_px": 1920,
+      "height_px": 1080,
+      "notes": "Bench photo of a small white perforated board in a vise. No solderless breadboard.",
+      "source": {
+        "url": "https://raw.githubusercontent.com/arduino/docs-content/65d578fc7de843c45c21fc77b31a7a2009c46a5b/content/learn/04.electronics/02.soldering-basics/assets/soldering-guide_img10.png",
+        "sha256": "86cd69f455f96c4fcade50694fafacdb9fa8f15f762815cefecb816150a91537",
+        "repository": "arduino/docs-content",
+        "revision": "65d578fc7de843c45c21fc77b31a7a2009c46a5b",
+        "photo_license": "Arduino Documentation is CC BY-SA 4.0 at repository level; underlying product-photo scope unconfirmed",
+        "license_url": "https://github.com/arduino/docs-content/blob/65d578fc7de843c45c21fc77b31a7a2009c46a5b/LICENSE.md"
+      }
+    }
+  ]
+}

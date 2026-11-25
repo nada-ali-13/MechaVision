@@ -1,0 +1,94 @@
+{
+  "id": "led_resistor_demo",
+  "name_ar": "دائرة LED والمقاومة",
+  "name_en": "LED and series resistor",
+  "description_ar": "يومض الصمام عندما يخرج D9 إشارة، وتحدّ المقاومة التيار عبر الصمام.",
+  "board": "arduino:avr:uno",
+  "components": [
+    {
+      "id": "uno",
+      "part_id": "uno",
+      "qty": 1,
+      "placement": "outside_board"
+    },
+    {
+      "id": "r1",
+      "part_id": "resistor",
+      "qty": 1,
+      "placement": "breadboard"
+    },
+    {
+      "id": "led1",
+      "part_id": "led",
+      "qty": 1,
+      "placement": "breadboard"
+    }
+  ],
+  "connections": [
+    {
+      "id": "signal",
+      "from": "uno.D9",
+      "to": "r1.A",
+      "kind": "signal",
+      "color": "yellow"
+    },
+    {
+      "id": "series",
+      "from": "r1.B",
+      "to": "led1.ANODE",
+      "kind": "signal",
+      "color": "yellow"
+    },
+    {
+      "id": "ground",
+      "from": "led1.CATHODE",
+      "to": "uno.GND",
+      "kind": "ground",
+      "color": "black"
+    }
+  ],
+  "assembly_steps": [
+    {
+      "step": 1,
+      "instruction_ar": "صِل D9 بطرف المقاومة الأول.",
+      "connection_ids": [
+        "signal"
+      ]
+    },
+    {
+      "step": 2,
+      "instruction_ar": "صِل طرف المقاومة الثاني بأنود LED.",
+      "connection_ids": [
+        "series"
+      ]
+    },
+    {
+      "step": 3,
+      "instruction_ar": "صِل كاثود LED بأرضي Arduino.",
+      "connection_ids": [
+        "ground"
+      ]
+    }
+  ],
+  "electrical_constraints": {
+    "supply_notes_ar": "مقاومة 220 Ω وصمام مرئي اعتيادي. افصل USB حتى مراجعة التركيب.",
+    "warnings_ar": [
+      "تحقّق من اتجاه الصمام وقيمة المقاومة قبل التغذية."
+    ]
+  },
+  "required_libraries": [],
+  "sketch_path": "Examples/led_resistor_demo/led_resistor_demo.ino",
+  "sources": [
+    {
+      "url": "https://docs.arduino.cc/built-in-examples/basics/Blink/",
+      "purpose": "مبدأ المقاومة التسلسلية في دائرة LED"
+    },
+    {
+      "url": "https://docs.arduino.cc/hardware/uno-rev3/",
+      "purpose": "تعريف منافذ Arduino Uno R3"
+    }
+  ],
+  "verification": {
+    "status": "draft"
+  }
+}
